@@ -1,16 +1,21 @@
-variable "proxmox_api_url" {
-    description = "PVE (Node 1) Host Machine API URL"
+variable "proxmox_api_perf_url" {
+    description = "PVE1 Performance Node Host Machine API URL"
+    type = string
+}
+
+variable "proxmox_api_stor_url" {
+    description = "PVE2 Storage Node Host Machine API URL"
     type = string
 }
 
 variable "proxmox_api_token_id" {
-    description = "PVE (Node 1) API Token ID"
+    description = "PVE Datacenter API Token ID for Terraform User"
     type = string
     sensitive = true
 }
 
 variable "proxmox_api_token_secret" {
-    description = "PVE (Node 1) API Token Secret"
+    description = "PVE Datacenter API Token Secret for Terraform User"
     type = string
     sensitive = true
 }

@@ -8,11 +8,13 @@ terraform {
     }
   }
 }
+
+#Proxmox API Connectivity Info
 provider "proxmox" {
-    pm_api_url = var.proxmox_api_url
+    pm_api_url = var.proxmox_api_perf_url
     pm_api_token_id = var.proxmox_api_token_id
     pm_api_token_secret = var.proxmox_api_token_secret
 
-    #Insecure until domain certificates have been propagated throughout the ecosystem
+    #Insecure until PKI has been implemented and deployed to apps, services & infra
     pm_tls_insecure = true
 }

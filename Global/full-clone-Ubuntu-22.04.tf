@@ -4,40 +4,38 @@
 
 resource "proxmox_vm_qemu" "VM-Terraform" {
     
-    # VM General Settings
+    #VM General Settings
     target_node = "pve"
     vmid = "30${count.index + 1}"
     count = 3
     name = "VM-Terraform-${count.index + 1}"
-    desc = "Test Templated VM's"
+    desc = "Terraform Test VM's"
 
-    # VM Advanced General Settings
+    #VM Advanced Settings
     onboot = true 
-    boot = "order=scsi0" # has to be the same as the OS disk of the template
+    boot = "order=scsi0" #Has to match the OS disk configuration of the template image
     scsihw = "virtio-scsi-single"
     full_clone = true
 
-    # VM OS Settings
+    #VM OS Settings
     clone = "Ubuntu-22.04-minimal-cloudinit-template"
 
-    # VM System Settings
+    #VM QEMU Guest Agent Settings
     agent = 1
     
-    # VM CPU Settings
+    #VM CPU & Memory Settings
     cores = 2
     sockets = 1
     cpu = "host"    
-    
-    # VM Memory Settings
     memory = 2048
 
-    # VM Network Settings
+    #VM Network Settings
     network {
         bridge = "vmbr0"
         model  = "virtio"
     }
 
-    # VM Cloud-Init Settings
+    #VM Cloud-Init Settings
     os_type = "cloud-init"
     nameserver = var.VM_DNS
     #ipconfig0 = "ip=10.0.0.130/24,gw=10.0.0.1"
@@ -48,11 +46,11 @@ resource "proxmox_vm_qemu" "VM-Terraform" {
     # (Optional) IP Address and Gateway
     # ipconfig0 = "ip=0.0.0.0/0,gw=0.0.0.0"
     
-    # (Optional) Default User
+    # (Optional) Host VM User Credentials
     ciuser = var.ciuser
     cipassword = var.cipassword
     
-    # (Optional) Add your SSH KEY (includes Workstation, pve 1 + pve 2)
+    # (Optional) Pre-configured list of public SSH KEYs (includes Workstation, pve 1 + pve 2)
     sshkeys = var.sshkeys
 
     #Confirm if needed
