@@ -1,3 +1,8 @@
+variable "proxmox_perf_host" {
+    description = "Proxmox Performance Node Name"
+    type = string
+}
+
 variable "proxmox_api_perf_url" {
     description = "PVE1 Performance Node Host Machine API URL"
     type = string
@@ -42,4 +47,19 @@ variable "sshkeys" {
     description = "Service Account Password - ciuser"
     type = string
     sensitive = true
+}
+
+variable "ansible_user" {
+    description = "Ansible service account"
+    type = string
+}
+
+variable "private_key_path" {
+    description = "Private Key Path"
+    type = string
+}
+
+variable "public_key_path" {
+    description = "Public Key Path"
+    type = string
 }
