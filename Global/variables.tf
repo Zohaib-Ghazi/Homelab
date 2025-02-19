@@ -57,6 +57,7 @@ variable "ansible_user" {
 variable "private_key_path" {
     description = "Private Key Path"
     type = string
+    #should i add a sensitive=true here?
 }
 
 variable "public_key_path" {

@@ -13,10 +13,10 @@
       when: ansible_distribution == "Ubuntu"
 
     #Placeholder for sshkey management at a later date (e.g. state=absent for removal etc) given that bootstrap script will include it
-    - name: Add ssh key for s_account
+    - name: Add ssh key for s_admin
       tags: always
       authorized_key:
-        user: s_account
+        user: s_admin
         key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"
 
   tasks:

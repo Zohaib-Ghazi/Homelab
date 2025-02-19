@@ -1,5 +1,5 @@
 #Naming scheme: HL = home lab; X1 = Production; SSTF = support services Terraform
-#Version 0.2.0
+#Version 0.3.0
 resource "proxmox_vm_qemu" "HLX1SSTF01" {
     
     #VM General Settings
@@ -92,7 +92,7 @@ resource "proxmox_vm_qemu" "HLX1SSTF01" {
   #}
 }
 
-resource "null_resource" "HLX1SSTF01-AnsibleExecution" {
+resource "null_resource" "HLX1SSTF01-Ansible-Execution" {
   provisioner "remote-exec" {
     inline = ["echo 'Ansible can now reach this resource!'"]
 
@@ -105,7 +105,10 @@ resource "null_resource" "HLX1SSTF01-AnsibleExecution" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.directory}/Inventory/inventory -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/infrastructure.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.directory}/Inventory/inventory -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/bootstrap.yml"
   } 
-depends_on = [ proxmox_vm_qemu.HLX1SSTF01 ]
+
+  provisioner "local-exec" {
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.directory}/Inventory/inventory -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/infrastructure.yml"
+  }
 }

@@ -44,3 +44,47 @@
 2025-02-18 22:53:18,678 p=117656 u=zohaib n=ansible | changed: [10.0.0.90]
 2025-02-18 22:53:18,721 p=117656 u=zohaib n=ansible | PLAY RECAP *********************************************************************
 2025-02-18 22:53:18,722 p=117656 u=zohaib n=ansible | 10.0.0.90                  : ok=7    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-18 23:26:18,785 p=126302 u=zohaib n=ansible | PLAY [Infrastructure Playbook] *************************************************
+2025-02-18 23:26:18,985 p=126302 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 23:26:29,026 p=126302 u=zohaib n=ansible | fatal: [10.0.0.90]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.90 port 22: Connection timed out", "unreachable": true}
+2025-02-18 23:26:29,028 p=126302 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 23:26:29,028 p=126302 u=zohaib n=ansible | 10.0.0.90                  : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-18 23:27:18,639 p=126582 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-02-18 23:27:18,786 p=126582 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 23:27:20,105 p=126582 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:27:20,187 p=126582 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-02-18 23:28:56,680 p=126582 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 23:28:56,708 p=126582 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-02-18 23:28:57,161 p=126582 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:28:57,192 p=126582 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-02-18 23:28:57,502 p=126582 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 23:28:57,530 p=126582 u=zohaib n=ansible | TASK [add ssh key for s_admin user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-02-18 23:28:57,785 p=126582 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:28:57,818 p=126582 u=zohaib n=ansible | TASK [add sudoers file for s_admin src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-02-18 23:28:58,234 p=126582 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 23:28:58,302 p=126582 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 23:28:58,303 p=126582 u=zohaib n=ansible | 10.0.0.90                  : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-18 23:35:10,994 p=128828 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-02-18 23:35:11,028 p=128828 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 23:35:12,829 p=128828 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:35:12,859 p=128828 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-02-18 23:36:49,695 p=128828 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 23:36:49,724 p=128828 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-02-18 23:36:50,168 p=128828 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:36:50,236 p=128828 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-02-18 23:36:50,612 p=128828 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 23:36:50,646 p=128828 u=zohaib n=ansible | TASK [add ssh key for s_admin user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-02-18 23:36:50,934 p=128828 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:36:50,977 p=128828 u=zohaib n=ansible | TASK [add sudoers file for s_admin src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-02-18 23:36:51,438 p=128828 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 23:36:51,524 p=128828 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 23:36:51,524 p=128828 u=zohaib n=ansible | 10.0.0.90                  : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-18 23:36:52,115 p=129311 u=zohaib n=ansible | PLAY [Infrastructure Playbook] *************************************************
+2025-02-18 23:36:52,153 p=129311 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 23:36:52,907 p=129311 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:36:52,940 p=129311 u=zohaib n=ansible | TASK [Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-02-18 23:36:53,697 p=129311 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 23:36:53,722 p=129311 u=zohaib n=ansible | TASK [Add ssh key for s_account user=s_account, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-02-18 23:36:54,034 p=129311 u=zohaib n=ansible | fatal: [10.0.0.90]: FAILED! => {"changed": false, "msg": "Failed to lookup user s_account: \"getpwnam(): name not found: 's_account'\""}
+2025-02-18 23:36:54,038 p=129311 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 23:36:54,038 p=129311 u=zohaib n=ansible | 10.0.0.90                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   

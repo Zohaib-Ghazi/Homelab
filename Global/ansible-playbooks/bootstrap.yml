@@ -22,20 +22,20 @@
     - name: Create ansible service user account
       tags: always
       user:
-        name: s_account
+        name: s_admin
         groups: root
 
-    - name: add ssh key for s_account
+    - name: add ssh key for s_admin
       tags: always
       authorized_key:
-        user: s_account
+        user: s_admin
         key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"
 
-    - name: add sudoers file for s_account
+    - name: add sudoers file for s_admin
       tags: always
       copy:
-        src: sudoer_s_account
-        dest: /etc/sudoers.d/s_account
+        src: sudoer_s_admin
+        dest: /etc/sudoers.d/s_admin
         owner: root
         group: root
         mode: 0440
