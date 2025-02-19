@@ -63,3 +63,8 @@ variable "public_key_path" {
     description = "Public Key Path"
     type = string
 }
+
+variable "directory" {
+    description = "Current Working Directory for Terraform & Ansible"
+    type = string
+}

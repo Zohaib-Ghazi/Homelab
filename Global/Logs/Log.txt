@@ -1,0 +1,18 @@
+2025-02-18 19:15:10,818 p=64805 u=zohaib n=ansible | PLAY [Ubuntu 22.04 Playbook] ***************************************************
+2025-02-18 19:15:10,850 p=64805 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 19:15:11,782 p=64805 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 19:15:11,852 p=64805 u=zohaib n=ansible | TASK [Install all available updates upgrade=dist, update_cache=True] ***********
+2025-02-18 19:16:49,775 p=64805 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 19:16:49,802 p=64805 u=zohaib n=ansible | TASK [Install qemu-guest-agent name=qemu-guest-agent, state=present, update_cache=True] ***
+2025-02-18 19:16:52,595 p=64805 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 19:16:52,658 p=64805 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 19:16:52,658 p=64805 u=zohaib n=ansible | 10.0.0.90                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-18 20:11:55,899 p=79389 u=zohaib n=ansible | PLAY [Ubuntu 22.04 Playbook] ***************************************************
+2025-02-18 20:11:55,948 p=79389 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 20:11:57,461 p=79389 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 20:11:57,522 p=79389 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server upgrade=dist, state=present, update_cache=True] ***
+2025-02-18 20:13:28,012 p=79389 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 20:13:28,029 p=79389 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server name=qemu-guest-agent, state=present, update_cache=True] ***
+2025-02-18 20:13:29,092 p=79389 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 20:13:29,141 p=79389 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 20:13:29,142 p=79389 u=zohaib n=ansible | 10.0.0.90                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

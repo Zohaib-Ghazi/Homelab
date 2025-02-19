@@ -1,0 +1,20 @@
+---
+
+- name: Infrastructure Playbook
+  hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Install all available updates on Ubuntu Server
+      tags: always, ubuntu
+      apt:
+        upgrade: dist
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+        
+    - name: Install qemu-guest-agent on Ubuntu Server
+      tags: always, ubuntu
+      apt:
+        name: qemu-guest-agent
+        state: present
+      when: ansible_distribution == "Ubuntu"
