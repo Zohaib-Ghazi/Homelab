@@ -1,0 +1,41 @@
+---
+
+- name: Bootstrap Infrastructure Playbook
+  hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Install all available updates on Ubuntu Server(s)
+      tags: always, ubuntu
+      apt:
+        upgrade: dist
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+        
+    - name: Install qemu-guest-agent on Ubuntu Server(s)
+      tags: always, ubuntu
+      apt:
+        name: qemu-guest-agent
+        state: present
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Create ansible service user account
+      tags: always
+      user:
+        name: s_account
+        groups: root
+
+    - name: add ssh key for s_account
+      tags: always
+      authorized_key:
+        user: s_account
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"
+
+    - name: add sudoers file for s_account
+      tags: always
+      copy:
+        src: sudoer_s_account
+        dest: /etc/sudoers.d/s_account
+        owner: root
+        group: root
+        mode: 0440

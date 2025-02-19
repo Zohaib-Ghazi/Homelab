@@ -16,3 +16,31 @@
 2025-02-18 20:13:29,092 p=79389 u=zohaib n=ansible | ok: [10.0.0.90]
 2025-02-18 20:13:29,141 p=79389 u=zohaib n=ansible | PLAY RECAP *********************************************************************
 2025-02-18 20:13:29,142 p=79389 u=zohaib n=ansible | 10.0.0.90                  : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-18 22:05:42,667 p=106525 u=zohaib n=ansible | PLAY [Infrastructure Playbook] *************************************************
+2025-02-18 22:05:42,699 p=106525 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 22:05:43,643 p=106525 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 22:05:43,662 p=106525 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server upgrade=dist, update_cache=True] ***
+2025-02-18 22:07:22,416 p=106525 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 22:07:22,440 p=106525 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server name=qemu-guest-agent, state=present] ***
+2025-02-18 22:07:23,105 p=106525 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 22:07:23,162 p=106525 u=zohaib n=ansible | TASK [Copy files from backend to target VM src=test.txt, dest=/home/s_admin/test.txt, owner=root, group=root, mode=420] ***
+2025-02-18 22:07:23,593 p=106525 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 22:07:23,644 p=106525 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 22:07:23,645 p=106525 u=zohaib n=ansible | 10.0.0.90                  : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-02-18 22:51:36,779 p=117656 u=zohaib n=ansible | PLAY [Infrastructure Playbook] *************************************************
+2025-02-18 22:51:36,820 p=117656 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-02-18 22:51:37,759 p=117656 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 22:51:37,795 p=117656 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server upgrade=dist, update_cache=True] ***
+2025-02-18 22:53:16,867 p=117656 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 22:53:16,898 p=117656 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server name=qemu-guest-agent, state=present] ***
+2025-02-18 22:53:17,332 p=117656 u=zohaib n=ansible | ok: [10.0.0.90]
+2025-02-18 22:53:17,358 p=117656 u=zohaib n=ansible | TASK [Create service user account name=s_account, groups=root] *****************
+2025-02-18 22:53:17,687 p=117656 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 22:53:17,711 p=117656 u=zohaib n=ansible | TASK [add ssh key for s_account user=s_account, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-02-18 22:53:17,944 p=117656 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 22:53:17,981 p=117656 u=zohaib n=ansible | TASK [add sudoers file for s_account src=sudoer_s_account, dest=/etc/sudoers.d/s_account, owner=root, group=root, mode=288] ***
+2025-02-18 22:53:18,394 p=117656 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 22:53:18,435 p=117656 u=zohaib n=ansible | TASK [Copy files from backend to target VM src=test.txt, dest=/home/s_admin/test.txt, owner=root, group=root, mode=493] ***
+2025-02-18 22:53:18,678 p=117656 u=zohaib n=ansible | changed: [10.0.0.90]
+2025-02-18 22:53:18,721 p=117656 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-02-18 22:53:18,722 p=117656 u=zohaib n=ansible | 10.0.0.90                  : ok=7    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
