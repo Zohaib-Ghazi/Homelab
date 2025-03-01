@@ -1,0 +1,35 @@
+---
+- name: Refresh repository indexes on available Ubuntu Server(s)
+  tags: always, ubuntu
+  apt:
+    update_cache: true
+  changed_when: false #Prevents ansible from reporting an updated simply from a repo update
+  when: ansible_distribution == "Ubuntu"
+
+- name: Install unzip
+  tags: linux_tools
+  apt:
+    name: 
+      - unzip
+    state: present
+
+- name: Download Terraform binary
+  get_url:
+    url: "https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip"
+    dest: "/tmp/terraform_1.10.5_linux_amd64.zip"
+    mode: "0755"
+
+- name: Extract Terraform Binary
+  unarchive:
+    src: "/tmp/terraform_1.10.5_linux_amd64.zip"
+    dest: "/usr/local/bin/"
+    remote_src: yes
+    #mode: 0755
+
+- name: Install Ansible & Git
+  tags: cicd_install
+  apt:
+    name: 
+      - ansible
+      - git
+    state: present

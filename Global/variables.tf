@@ -1,8 +1,14 @@
 variable "proxmox_perf_host" {
     description = "Proxmox Performance Node Name"
     type = string
+    default = "pve"
 }
 
+variable "proxmox_nas_host" {
+    description = "Proxmox NAS Node Name"
+    type = string
+    default = "pve2"
+}
 variable "proxmox_api_perf_url" {
     description = "PVE1 Performance Node Host Machine API URL"
     type = string

@@ -1,0 +1,6 @@
+---
+- name: add ssh key for ansible service user account 's_admin'
+  tags: always
+  authorized_key:
+    user: s_admin
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"

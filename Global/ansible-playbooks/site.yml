@@ -1,0 +1,14 @@
+---
+
+- import_playbook: bootstrap.yml
+
+- hosts: all
+  become: yes
+  roles:
+    - base
+
+
+- hosts: CICD
+  become: yes
+  roles:
+    - CICD

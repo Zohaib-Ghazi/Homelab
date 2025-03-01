@@ -1,19 +1,19 @@
 #Naming scheme: HL = home lab; X1 = Production; SSTF = support services Terraform
-#Version 0.3.0
-resource "proxmox_vm_qemu" "HLX1SSTF01" {
+#Version 1.0.0
+resource "proxmox_vm_qemu" "HLI1VTRT-01" {
     
     #VM General Settings
-    target_node = var.proxmox_perf_host 
-    vmid = "300"
-    name = "HLX1SSTF01"
-    desc = "Production VM to run Support Services - Terraform"
+    target_node = var.proxmox_nas_host 
+    vmid = "301"
+    name = "HLI1VTRT01"
+    desc = "Production Vault Root CA"
 
     #VM Advanced Settings
-    onboot = true #Start the VM on host startup
+    onboot = false 
     bootdisk = "scsi0" #The bood disk scsi
     boot = "order=scsi0" #Has to match the OS disk configuration of the template image
     scsihw = "virtio-scsi-single" #Scsi hardware type
-    
+
     #VM Template Image to Clone
     clone = "Ubuntu-22.04-minimal-cloudinit-template"
     full_clone = true
@@ -42,7 +42,7 @@ resource "proxmox_vm_qemu" "HLX1SSTF01" {
     qemu_os = "l26"
 
     #Network Configurations: IP Address and Gateway
-    ipconfig0 = "ip=10.0.0.90/24,gw=10.0.0.1"
+    ipconfig0 = "ip=10.0.0.101/24,gw=10.0.0.1"
     
     # (Optional) Host VM User Credentials
     ciuser = var.ciuser
@@ -81,18 +81,15 @@ resource "proxmox_vm_qemu" "HLX1SSTF01" {
             }
       }
     }
-
-  # Ignore changes to the network
-  ## MAC address is generated on every apply, causing
-  ## TF to think this needs to be rebuilt on every apply
-  #lifecycle {
-  #   ignore_changes = [
-  #     network
-  #   ]
-  #}
+ 
+  ## Lifecycle section tells Terraform to ignore any changes to network configuration, disk, sshkeys, and the node that the VMs is on. This allows configuration drift in those areas without triggering Terraform to destroy the VM and recreate it with the “correct” configuration.
+  lifecycle {
+     ignore_changes = [
+       network, disk, sshkeys, target_node]
+  }
 }
 
-resource "null_resource" "HLX1SSTF01-Ansible-Execution" {
+resource "null_resource" "HLI1VTRT-01-Ansible-Execution" {
   provisioner "remote-exec" {
     inline = ["echo 'Ansible can now reach this resource!'"]
 
@@ -100,15 +97,11 @@ resource "null_resource" "HLX1SSTF01-Ansible-Execution" {
       type = "ssh"
       user = var.ansible_user
       private_key = file("${var.private_key_path}")
-      host = "10.0.0.90"
+      host = "10.0.0.101" #self.ip_address 
     }
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.directory}/Inventory/inventory -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/bootstrap.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.directory}/Inventory/inventory -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/site.yml"
   } 
-
-  provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.directory}/Inventory/inventory -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/infrastructure.yml"
-  }
 }
