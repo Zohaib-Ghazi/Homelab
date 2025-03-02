@@ -34,3 +34,15 @@
       - ansible
       - git
     state: present
+
+- name: Configure Git with ssh key
+  tags: cicd_install
+  git_config:
+    name: user.email
+    value: "zohaib.ghazi@gmail.com" #Change this to vairable holding email address
+
+- name: Git Clone using ssh key
+  tags: cicd_install
+  git:
+    repo: "git@github.com:Zohaib-Ghazi/Homelab.git"
+    dest: "/home/s_admin/git-repos/Homelab"
