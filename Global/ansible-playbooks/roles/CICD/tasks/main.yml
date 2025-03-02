@@ -11,6 +11,7 @@
   apt:
     name: 
       - unzip
+      - nfs-common
     state: present
 
 - name: Download Terraform binary

@@ -1,12 +1,12 @@
 #Naming scheme: HL = home lab; X1 = Production; CICD = Services to support CICD pipeline
 #Version 0.3.0
-resource "proxmox_vm_qemu" "HLI1CICD-01" {
+resource "proxmox_vm_qemu" "HLI1CICD-BS" {
     
     #VM General Settings
     target_node = var.proxmox_perf_host 
     vmid = "300"
-    name = "HLI1CICD-01"
-    desc = "Production VM for CICD Services"
+    name = "HLI1CICD-BS"
+    desc = "Production Bootstrap VM for CICD Services"
 
     #VM Advanced Settings
     onboot = true #Start the VM on host startup
@@ -89,10 +89,10 @@ resource "proxmox_vm_qemu" "HLI1CICD-01" {
   }
 }
 
-resource "null_resource" "HLI1CICD-01-Ansible-Execution" {
-  provisioner "local-exec" {
-      command = "sleep 10"
-    }
+resource "null_resource" "HLI1CICD-BS-Ansible-Execution" {
+  #provisioner "local-exec" {
+  #    command = "sleep 10"
+  #  }
 
   provisioner "remote-exec" {
     inline = ["echo 'Ansible can now reach this resource!'"]

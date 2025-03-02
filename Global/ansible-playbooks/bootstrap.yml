@@ -1,6 +1,7 @@
 - name: Bootstrap Infrastructure Playbook
   hosts: all
   become: yes
+  gather_facts: no
 
   tasks:
     - name: Install all available updates on Ubuntu Server(s)
@@ -8,32 +9,53 @@
       apt:
         upgrade: dist
         update_cache: true
-      when: ansible_distribution == "Ubuntu"
+      #when: ansible_distribution == "Ubuntu"
         
     - name: Install qemu-guest-agent on Ubuntu Server(s)
       tags: always, ubuntu
       apt:
         name: qemu-guest-agent
         state: present
-      when: ansible_distribution == "Ubuntu"
+      #when: ansible_distribution == "Ubuntu"
 
     - name: Create ansible service user account
-      tags: always
+      tags: always, ansible_service_admin
       user:
         name: s_admin
         groups: root
 
-    - name: add ssh key for ansible service user account 's_admin'
-      tags: always
-      authorized_key:
-        user: s_admin
-        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"
-
     - name: add sudoers file for ansible service user account 's_admin'
-      tags: always
+      tags: always, ansible_service_admin
       copy:
         src: sudoer_s_admin
         dest: /etc/sudoers.d/s_admin
         owner: root
         group: root
         mode: 0440
+      
+    - name: Generate ssh keypair using ed25519 protocol on CICD server
+      tags: sshkeygen
+      openssh_keypair:
+        path: /home/s_admin/.ssh/id_ed25519
+        type: ed25519
+        state: present
+        owner: s_admin
+        group: s_admin
+        mode: 0600
+
+      #Need to output the public key to a file so it can be used in a different task to add the ssh public key to target servers
+    #- name: Output the public key to a file
+    #  tags: sshkeygen
+    #  copy:
+    #    src: "/home/s_admin/.ssh/id_ed25519.pub"
+    #    dest: "ansible_id_ed25519.pub"
+    #    owner: s_admin
+    #    group: s_admin
+    #    remote_src: true
+    #    mode: 0777 #0600
+
+    - name: add ssh key for ansible boostrap service user account 's_admin'
+      tags: always
+      authorized_key:
+        user: s_admin
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"

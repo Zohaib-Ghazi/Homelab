@@ -286,3 +286,102 @@ The offending line appears to be:
 2025-03-01 13:07:57,434 p=191084 u=zohaib n=ansible | changed: [10.0.0.101]
 2025-03-01 13:07:57,478 p=191084 u=zohaib n=ansible | PLAY RECAP *********************************************************************
 2025-03-01 13:07:57,479 p=191084 u=zohaib n=ansible | 10.0.0.101                 : ok=15   changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-01 17:00:52,487 p=209968 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 17:00:52,533 p=209968 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 17:00:52,564 p=209968 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"msg": "The conditional check 'ansible_distribution == \"Ubuntu\"' failed. The error was: error while evaluating conditional (ansible_distribution == \"Ubuntu\"): 'ansible_distribution' is undefined\n\nThe error appears to be in '/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/bootstrap.yml': line 7, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n  tasks:\n    - name: Install all available updates on Ubuntu Server(s)\n      ^ here\n"}
+2025-03-01 17:00:52,565 p=209968 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 17:00:52,565 p=209968 u=zohaib n=ansible | 10.0.0.101                 : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-01 17:01:55,734 p=210249 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 17:01:55,784 p=210249 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 17:01:55,810 p=210249 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"msg": "The conditional check 'ansible_distribution == \"Ubuntu\"' failed. The error was: error while evaluating conditional (ansible_distribution == \"Ubuntu\"): 'ansible_distribution' is undefined\n\nThe error appears to be in '/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/bootstrap.yml': line 7, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n  tasks:\n    - name: Install all available updates on Ubuntu Server(s)\n      ^ here\n"}
+2025-03-01 17:01:55,811 p=210249 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 17:01:55,812 p=210249 u=zohaib n=ansible | 10.0.0.101                 : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-01 17:07:19,938 p=210610 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 17:07:19,979 p=210610 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 17:07:19,998 p=210610 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"msg": "The conditional check 'ansible_distribution == \"Ubuntu\"' failed. The error was: error while evaluating conditional (ansible_distribution == \"Ubuntu\"): 'ansible_distribution' is undefined\n\nThe error appears to be in '/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/bootstrap.yml': line 7, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n  tasks:\n    - name: Install all available updates on Ubuntu Server(s)\n      ^ here\n"}
+2025-03-01 17:07:19,999 p=210610 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 17:07:20,000 p=210610 u=zohaib n=ansible | 10.0.0.101                 : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-01 17:12:51,991 p=211067 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 17:12:52,039 p=211067 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 17:12:52,061 p=211067 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"msg": "The conditional check 'ansible_distribution == \"Ubuntu\"' failed. The error was: error while evaluating conditional (ansible_distribution == \"Ubuntu\"): 'ansible_distribution' is undefined\n\nThe error appears to be in '/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/bootstrap.yml': line 7, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n  tasks:\n    - name: Install all available updates on Ubuntu Server(s)\n      ^ here\n"}
+2025-03-01 17:12:52,063 p=211067 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 17:12:52,063 p=211067 u=zohaib n=ansible | 10.0.0.101                 : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-01 17:14:06,972 p=211358 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 17:14:07,021 p=211358 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 17:14:07,044 p=211358 u=zohaib n=ansible | fatal: [10.0.0.101]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.101 port 22: Connection refused", "unreachable": true}
+2025-03-01 17:14:07,046 p=211358 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 17:14:07,047 p=211358 u=zohaib n=ansible | 10.0.0.101                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-01 17:16:11,459 p=211668 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 17:16:11,500 p=211668 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 17:17:50,825 p=211668 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 17:17:50,851 p=211668 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-01 17:17:51,252 p=211668 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 17:17:51,278 p=211668 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-01 17:17:51,564 p=211668 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 17:17:51,594 p=211668 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-01 17:17:52,006 p=211668 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 17:17:52,028 p=211668 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-01 17:17:52,221 p=211668 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 17:17:52,245 p=211668 u=zohaib n=ansible | TASK [Output the public key to a file content={{ lookup('file', '/home/s_admin/.ssh/id_ed25519.pub') }}, dest=ansible_id_ed25519.pub, owner=s_admin, group=s_admin, mode=511] ***
+2025-03-01 17:17:52,262 p=211750 u=zohaib n=ansible | [WARNING]: Unable to find '/home/s_admin/.ssh/id_ed25519.pub' in expected paths
+(use -vvvvv to see paths)
+
+2025-03-01 17:17:52,265 p=211668 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"msg": "An unhandled exception occurred while running the lookup plugin 'file'. Error was a <class 'ansible.errors.AnsibleError'>, original message: could not locate file in lookup: /home/s_admin/.ssh/id_ed25519.pub"}
+2025-03-01 17:17:52,266 p=211668 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 17:17:52,266 p=211668 u=zohaib n=ansible | 10.0.0.101                 : ok=5    changed=4    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-01 19:10:13,132 p=212125 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 19:10:13,179 p=212125 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 19:11:48,817 p=212125 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:11:48,843 p=212125 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-01 19:11:49,231 p=212125 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 19:11:49,255 p=212125 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-01 19:11:49,526 p=212125 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:11:49,551 p=212125 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-01 19:11:49,950 p=212125 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:11:49,968 p=212125 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-01 19:11:50,160 p=212125 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:11:50,185 p=212125 u=zohaib n=ansible | TASK [Output the public key to a file content={{ lookup('file', '/home/s_admin/.ssh/id_ed25519.pub') }}, dest=ansible_id_ed25519.pub, owner=s_admin, group=None, remote_src=True, mode=511] ***
+2025-03-01 19:11:50,205 p=212188 u=zohaib n=ansible | [WARNING]: Unable to find '/home/s_admin/.ssh/id_ed25519.pub' in expected paths
+(use -vvvvv to see paths)
+
+2025-03-01 19:11:50,209 p=212125 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"msg": "An unhandled exception occurred while running the lookup plugin 'file'. Error was a <class 'ansible.errors.AnsibleError'>, original message: could not locate file in lookup: /home/s_admin/.ssh/id_ed25519.pub"}
+2025-03-01 19:11:50,211 p=212125 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 19:11:50,211 p=212125 u=zohaib n=ansible | 10.0.0.101                 : ok=5    changed=4    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-01 19:23:00,146 p=212428 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 19:23:00,190 p=212428 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 19:23:10,211 p=212428 u=zohaib n=ansible | fatal: [10.0.0.101]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.101 port 22: Connection timed out", "unreachable": true}
+2025-03-01 19:23:10,213 p=212428 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 19:23:10,213 p=212428 u=zohaib n=ansible | 10.0.0.101                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-01 19:24:46,737 p=212642 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 19:24:46,781 p=212642 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 19:26:30,617 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:30,645 p=212642 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-01 19:26:31,051 p=212642 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 19:26:31,077 p=212642 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-01 19:26:31,330 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:31,367 p=212642 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-01 19:26:31,753 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:31,770 p=212642 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-01 19:26:31,955 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:31,985 p=212642 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-01 19:26:32,198 p=212642 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 19:26:32,239 p=212642 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-01 19:26:32,262 p=212642 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-01 19:26:32,881 p=212642 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 19:26:32,921 p=212642 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-01 19:26:33,088 p=212642 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 19:26:33,139 p=212642 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-01 19:26:33,159 p=212642 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-01 19:26:33,640 p=212642 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 19:26:33,683 p=212642 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-01 19:26:35,033 p=212642 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-01 19:26:35,063 p=212642 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip'], state=present] **********************
+2025-03-01 19:26:37,040 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:37,065 p=212642 u=zohaib n=ansible | TASK [CICD : Download Terraform binary url=https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip, dest=/tmp/terraform_1.10.5_linux_amd64.zip, mode=0755] ***
+2025-03-01 19:26:37,908 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:37,936 p=212642 u=zohaib n=ansible | TASK [CICD : Extract Terraform Binary src=/tmp/terraform_1.10.5_linux_amd64.zip, dest=/usr/local/bin/, remote_src=True] ***
+2025-03-01 19:26:38,600 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:38,628 p=212642 u=zohaib n=ansible | TASK [CICD : Install Ansible & Git name=['ansible', 'git'], state=present] *****
+2025-03-01 19:26:59,623 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-01 19:26:59,662 p=212642 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 19:26:59,662 p=212642 u=zohaib n=ansible | 10.0.0.101                 : ok=14   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
