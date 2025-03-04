@@ -33,15 +33,15 @@
         group: root
         mode: 0440
       
-    - name: Generate ssh keypair using ed25519 protocol on CICD server
-      tags: sshkeygen
-      openssh_keypair:
-        path: /home/s_admin/.ssh/id_ed25519
-        type: ed25519
-        state: present
-        owner: s_admin
-        group: s_admin
-        mode: 0600
+  #  - name: Generate ssh keypair using ed25519 protocol on CICD server
+  #    tags: sshkeygen
+  #    openssh_keypair:
+  #      path: /home/s_admin/.ssh/id_ed25519
+  #      type: ed25519
+  #      state: present
+  #      owner: s_admin
+  #      group: s_admin
+  #      mode: 0600
 
       #Need to output the public key to a file so it can be used in a different task to add the ssh public key to target servers
     #- name: Output the public key to a file

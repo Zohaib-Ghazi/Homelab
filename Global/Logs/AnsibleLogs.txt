@@ -385,3 +385,327 @@ The offending line appears to be:
 2025-03-01 19:26:59,623 p=212642 u=zohaib n=ansible | changed: [10.0.0.101]
 2025-03-01 19:26:59,662 p=212642 u=zohaib n=ansible | PLAY RECAP *********************************************************************
 2025-03-01 19:26:59,662 p=212642 u=zohaib n=ansible | 10.0.0.101                 : ok=14   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-01 22:12:40,302 p=2358 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-01 22:12:40,344 p=2358 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-01 22:12:50,377 p=2358 u=zohaib n=ansible | fatal: [10.0.0.101]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.101 port 22: Connection timed out", "unreachable": true}
+2025-03-01 22:14:20,826 p=2358 u=zohaib n=ansible | changed: [10.0.0.102]
+2025-03-01 22:14:20,841 p=2358 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-01 22:14:21,450 p=2358 u=zohaib n=ansible | ok: [10.0.0.102]
+2025-03-01 22:14:21,472 p=2358 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-01 22:14:21,772 p=2358 u=zohaib n=ansible | changed: [10.0.0.102]
+2025-03-01 22:14:21,809 p=2358 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-01 22:14:22,228 p=2358 u=zohaib n=ansible | changed: [10.0.0.102]
+2025-03-01 22:14:22,244 p=2358 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-01 22:14:22,461 p=2358 u=zohaib n=ansible | changed: [10.0.0.102]
+2025-03-01 22:14:22,493 p=2358 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-01 22:14:22,768 p=2358 u=zohaib n=ansible | ok: [10.0.0.102]
+2025-03-01 22:14:22,813 p=2358 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-01 22:14:22,831 p=2358 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-01 22:14:23,496 p=2358 u=zohaib n=ansible | ok: [10.0.0.102]
+2025-03-01 22:14:23,536 p=2358 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-01 22:14:23,762 p=2358 u=zohaib n=ansible | ok: [10.0.0.102]
+2025-03-01 22:14:23,808 p=2358 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-01 22:14:23,811 p=2358 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-01 22:14:23,811 p=2358 u=zohaib n=ansible | 10.0.0.101                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-01 22:14:23,812 p=2358 u=zohaib n=ansible | 10.0.0.102                 : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 10:14:16,692 p=170317 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 10:14:16,746 p=170317 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 10:14:26,809 p=170317 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: Connection timed out", "unreachable": true}
+2025-03-02 10:15:59,085 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:15:59,109 p=170317 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 10:15:59,488 p=170317 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:15:59,509 p=170317 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 10:15:59,753 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:15:59,786 p=170317 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 10:16:00,173 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:00,192 p=170317 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 10:16:00,368 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:00,385 p=170317 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 10:16:00,597 p=170317 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:16:00,631 p=170317 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 10:16:00,657 p=170317 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 10:16:01,255 p=170317 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:16:01,297 p=170317 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 10:16:01,478 p=170317 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:16:01,516 p=170317 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 10:16:01,534 p=170317 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 10:16:01,992 p=170317 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:16:02,035 p=170317 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 10:16:03,009 p=170317 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:16:03,034 p=170317 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 10:16:07,422 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:07,445 p=170317 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=ansible.pub, dest=/home/s_admin/.ssh/, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 10:16:07,710 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:07,730 p=170317 u=zohaib n=ansible | TASK [CICD : Download Terraform binary url=https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip, dest=/tmp/terraform_1.10.5_linux_amd64.zip, mode=0755] ***
+2025-03-02 10:16:08,692 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:08,725 p=170317 u=zohaib n=ansible | TASK [CICD : Extract Terraform Binary src=/tmp/terraform_1.10.5_linux_amd64.zip, dest=/usr/local/bin/, remote_src=True] ***
+2025-03-02 10:16:09,392 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:09,418 p=170317 u=zohaib n=ansible | TASK [CICD : Install Ansible & Git name=['ansible', 'git'], state=present] *****
+2025-03-02 10:16:29,691 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:29,709 p=170317 u=zohaib n=ansible | TASK [CICD : Configure Git with ssh key name=user.email, value=zohaib.ghazi@gmail.com] ***
+2025-03-02 10:16:29,910 p=170317 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:16:29,926 p=170317 u=zohaib n=ansible | TASK [CICD : Git Clone using ssh key repo=git@github.com:Zohaib-Ghazi/Homelab.git, dest=/home/s_admin/git-repos/Homelab] ***
+2025-03-02 10:16:30,304 p=170317 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "cmd": "/usr/bin/git clone --origin origin '' /home/s_admin/git-repos/Homelab", "msg": "Cloning into '/home/s_admin/git-repos/Homelab'...\nHost key verification failed.\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.", "rc": 128, "stderr": "Cloning into '/home/s_admin/git-repos/Homelab'...\nHost key verification failed.\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n", "stderr_lines": ["Cloning into '/home/s_admin/git-repos/Homelab'...", "Host key verification failed.", "fatal: Could not read from remote repository.", "", "Please make sure you have the correct access rights", "and the repository exists."], "stdout": "", "stdout_lines": []}
+2025-03-02 10:16:30,306 p=170317 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 10:16:30,307 p=170317 u=zohaib n=ansible | 10.0.0.101                 : ok=16   changed=10   unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 10:16:30,308 p=170317 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 10:22:28,205 p=172777 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 10:22:28,254 p=172777 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 10:22:30,830 p=172777 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: No route to host", "unreachable": true}
+2025-03-02 10:24:08,342 p=172777 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:24:08,370 p=172777 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 10:24:08,763 p=172777 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:24:08,792 p=172777 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 10:24:09,056 p=172777 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:24:09,088 p=172777 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 10:24:09,447 p=172777 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:24:09,470 p=172777 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 10:24:09,639 p=172777 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:24:09,660 p=172777 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 10:24:09,868 p=172777 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:24:09,904 p=172777 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 10:24:09,930 p=172777 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 10:24:10,529 p=172777 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:24:10,574 p=172777 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 10:24:10,737 p=172777 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:24:10,780 p=172777 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 10:24:10,798 p=172777 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 10:24:11,258 p=172777 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:24:11,300 p=172777 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 10:24:12,183 p=172777 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:24:12,204 p=172777 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 10:24:16,499 p=172777 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:24:16,530 p=172777 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=ansible.pub, dest=/home/s_admin/.ssh/, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 10:24:16,588 p=172777 u=zohaib n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2025-03-02 10:24:16,589 p=172777 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "msg": "Could not find or access 'ansible.pub'\nSearched in:\n\t/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/roles/CICD/files/ansible.pub\n\t/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/roles/CICD/ansible.pub\n\t/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/roles/CICD/tasks/files/ansible.pub\n\t/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/roles/CICD/tasks/ansible.pub\n\t/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/files/ansible.pub\n\t/mnt/c/Users/Zohaib/HomeLab/Homelab/Global/ansible-playbooks/ansible.pub on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2025-03-02 10:24:16,590 p=172777 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 10:24:16,590 p=172777 u=zohaib n=ansible | 10.0.0.101                 : ok=11   changed=5    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 10:24:16,591 p=172777 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 10:26:53,697 p=174284 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 10:26:53,741 p=174284 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 10:26:54,839 p=174284 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: No route to host", "unreachable": true}
+2025-03-02 10:28:31,733 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:28:31,760 p=174284 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 10:28:32,138 p=174284 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:28:32,163 p=174284 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 10:28:32,412 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:28:32,442 p=174284 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 10:28:32,814 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:28:32,832 p=174284 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 10:28:33,019 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:28:33,036 p=174284 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 10:28:33,267 p=174284 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:28:33,306 p=174284 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 10:28:33,332 p=174284 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 10:28:33,943 p=174284 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:28:33,989 p=174284 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 10:28:34,141 p=174284 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:28:34,183 p=174284 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 10:28:34,205 p=174284 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 10:28:34,645 p=174284 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:28:34,677 p=174284 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 10:28:35,821 p=174284 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 10:28:35,848 p=174284 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 10:28:39,903 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:28:39,921 p=174284 u=zohaib n=ansible | TASK [CICD : Download Terraform binary url=https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip, dest=/tmp/terraform_1.10.5_linux_amd64.zip, mode=0755] ***
+2025-03-02 10:28:41,265 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:28:41,292 p=174284 u=zohaib n=ansible | TASK [CICD : Extract Terraform Binary src=/tmp/terraform_1.10.5_linux_amd64.zip, dest=/usr/local/bin/, remote_src=True] ***
+2025-03-02 10:28:41,945 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:28:41,968 p=174284 u=zohaib n=ansible | TASK [CICD : Install Ansible & Git name=['ansible', 'git'], state=present] *****
+2025-03-02 10:29:03,032 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:29:03,050 p=174284 u=zohaib n=ansible | TASK [CICD : Configure Git with ssh key name=user.email, value=zohaib.ghazi@gmail.com] ***
+2025-03-02 10:29:03,237 p=174284 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 10:29:03,256 p=174284 u=zohaib n=ansible | TASK [CICD : Git Clone using ssh key repo=git@github.com:Zohaib-Ghazi/Homelab.git, dest=/home/s_admin/git-repos/Homelab, accept_hostkey=False] ***
+2025-03-02 10:29:03,614 p=174284 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "cmd": "/usr/bin/git clone --origin origin '' /home/s_admin/git-repos/Homelab", "msg": "Cloning into '/home/s_admin/git-repos/Homelab'...\nHost key verification failed.\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.", "rc": 128, "stderr": "Cloning into '/home/s_admin/git-repos/Homelab'...\nHost key verification failed.\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n", "stderr_lines": ["Cloning into '/home/s_admin/git-repos/Homelab'...", "Host key verification failed.", "fatal: Could not read from remote repository.", "", "Please make sure you have the correct access rights", "and the repository exists."], "stdout": "", "stdout_lines": []}
+2025-03-02 10:29:03,616 p=174284 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 10:29:03,616 p=174284 u=zohaib n=ansible | 10.0.0.101                 : ok=15   changed=9    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 10:29:03,616 p=174284 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:25:50,737 p=188792 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 11:25:50,789 p=188792 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 11:25:53,843 p=188792 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: No route to host", "unreachable": true}
+2025-03-02 11:27:33,836 p=188792 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:27:33,861 p=188792 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 11:27:34,252 p=188792 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:27:34,273 p=188792 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 11:27:34,529 p=188792 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:27:34,571 p=188792 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 11:27:34,946 p=188792 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:27:34,961 p=188792 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 11:27:35,149 p=188792 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:27:35,164 p=188792 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:27:35,401 p=188792 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:27:35,445 p=188792 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 11:27:35,467 p=188792 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:27:36,093 p=188792 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:27:36,136 p=188792 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:27:36,299 p=188792 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:27:36,342 p=188792 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 11:27:36,360 p=188792 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:27:36,826 p=188792 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:27:36,867 p=188792 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 11:27:37,793 p=188792 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:27:37,815 p=188792 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 11:27:42,211 p=188792 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:27:42,237 p=188792 u=zohaib n=ansible | TASK [CICD : Mount an NFS volume src=10.0.0.233:/mnt/StorageDisk/NFS, path=/mnt/NFS, opts=rw,sync,hard, state=mounted, fstype=nfs] ***
+2025-03-02 11:27:42,611 p=188792 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:27:42,633 p=188792 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=/mnt/NFS/files/ansible.pub, dest=/home/s_admin/.ssh/ansible.pub, owner=s_admin, group=s_admin, mode=420] ***
+2025-03-02 11:27:42,672 p=188792 u=zohaib n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2025-03-02 11:27:42,673 p=188792 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "msg": "Could not find or access '/mnt/NFS/files/ansible.pub' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2025-03-02 11:27:42,674 p=188792 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 11:27:42,674 p=188792 u=zohaib n=ansible | 10.0.0.101                 : ok=12   changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:27:42,675 p=188792 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:31:08,623 p=190494 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 11:31:08,672 p=190494 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 11:31:09,840 p=190494 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: No route to host", "unreachable": true}
+2025-03-02 11:32:48,691 p=190494 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:32:48,718 p=190494 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 11:32:49,134 p=190494 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:32:49,163 p=190494 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 11:32:49,404 p=190494 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:32:49,421 p=190494 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 11:32:49,801 p=190494 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:32:49,816 p=190494 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 11:32:50,009 p=190494 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:32:50,027 p=190494 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:32:50,271 p=190494 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:32:50,309 p=190494 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 11:32:50,336 p=190494 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:32:50,932 p=190494 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:32:50,975 p=190494 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:32:51,139 p=190494 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:32:51,183 p=190494 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 11:32:51,203 p=190494 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:32:51,668 p=190494 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:32:51,700 p=190494 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 11:32:52,506 p=190494 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:32:52,534 p=190494 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 11:32:57,144 p=190494 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:32:57,174 p=190494 u=zohaib n=ansible | TASK [CICD : Mount an NFS volume src=10.0.0.233:/mnt/StorageDisk/NFS, path=/mnt/NFS, opts=rw,sync,hard, state=mounted, fstype=nfs] ***
+2025-03-02 11:32:57,516 p=190494 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:32:57,539 p=190494 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=/mnt/NFS/files/ansible.pub, dest=/home/s_admin/.ssh/ansible.pub, owner=s_admin, group=s_admin, mode=420] ***
+2025-03-02 11:32:57,571 p=190494 u=zohaib n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2025-03-02 11:32:57,572 p=190494 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "msg": "Could not find or access '/mnt/NFS/files/ansible.pub' on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2025-03-02 11:32:57,573 p=190494 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 11:32:57,573 p=190494 u=zohaib n=ansible | 10.0.0.101                 : ok=12   changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:32:57,573 p=190494 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:35:20,941 p=191923 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 11:35:20,981 p=191923 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 11:35:22,336 p=191923 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: No route to host", "unreachable": true}
+2025-03-02 11:36:59,199 p=191923 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:36:59,217 p=191923 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 11:36:59,608 p=191923 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:36:59,634 p=191923 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 11:36:59,910 p=191923 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:36:59,932 p=191923 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 11:37:00,305 p=191923 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:37:00,322 p=191923 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 11:37:00,521 p=191923 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:37:00,559 p=191923 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:37:00,811 p=191923 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:37:00,861 p=191923 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 11:37:00,877 p=191923 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:37:01,495 p=191923 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:37:01,536 p=191923 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:37:01,710 p=191923 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:37:01,746 p=191923 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 11:37:01,763 p=191923 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:37:02,231 p=191923 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:37:02,276 p=191923 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 11:37:03,143 p=191923 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:37:03,172 p=191923 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 11:37:06,932 p=191923 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:37:06,959 p=191923 u=zohaib n=ansible | TASK [CICD : Mount an NFS volume src=10.0.0.233:/mnt/StorageDisk/NFS, path=/mnt/NFS, opts=rw,sync,hard, state=mounted, fstype=nfs] ***
+2025-03-02 11:37:07,316 p=191923 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:37:07,346 p=191923 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=/mnt/NFS/files/ansible.pub, dest=/home/s_admin/.ssh/ansible.pub, owner=s_admin, group=s_admin, mode=420, remote_src=True] ***
+2025-03-02 11:37:07,464 p=191923 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "msg": "Source /mnt/NFS/files/ansible.pub not found"}
+2025-03-02 11:37:07,466 p=191923 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 11:37:07,466 p=191923 u=zohaib n=ansible | 10.0.0.101                 : ok=12   changed=6    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:37:07,467 p=191923 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:56:01,246 p=197396 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 11:56:01,290 p=197396 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 11:56:02,843 p=197396 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: No route to host", "unreachable": true}
+2025-03-02 11:57:40,734 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:40,764 p=197396 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 11:57:41,147 p=197396 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:57:41,174 p=197396 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 11:57:41,427 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:41,462 p=197396 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 11:57:41,830 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:41,844 p=197396 u=zohaib n=ansible | TASK [Generate ssh keypair using ed25519 protocol on CICD server path=/home/s_admin/.ssh/id_ed25519, type=ed25519, state=present, owner=s_admin, group=s_admin, mode=384] ***
+2025-03-02 11:57:42,037 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:42,054 p=197396 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:57:42,284 p=197396 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:57:42,320 p=197396 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 11:57:42,343 p=197396 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:57:42,982 p=197396 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:57:43,016 p=197396 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 11:57:43,192 p=197396 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:57:43,229 p=197396 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 11:57:43,260 p=197396 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 11:57:43,720 p=197396 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:57:43,768 p=197396 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 11:57:44,769 p=197396 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 11:57:44,804 p=197396 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 11:57:48,948 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:48,971 p=197396 u=zohaib n=ansible | TASK [CICD : Mount an NFS volume src=10.0.0.233:/mnt/StorageDisk/NFS, path=/mnt/NFS, opts=rw,sync,hard, state=mounted, fstype=nfs] ***
+2025-03-02 11:57:49,350 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:49,374 p=197396 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=/mnt/NFS/files/ansible.pub, dest=/home/s_admin/.ssh/ansible.pub, owner=s_admin, group=s_admin, mode=493, remote_src=True] ***
+2025-03-02 11:57:49,513 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:49,536 p=197396 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=/mnt/NFS/files/ansible, dest=/home/s_admin/.ssh/ansible, owner=s_admin, group=s_admin, mode=493, remote_src=True] ***
+2025-03-02 11:57:49,684 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:49,709 p=197396 u=zohaib n=ansible | TASK [CICD : Download Terraform binary url=https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip, dest=/tmp/terraform_1.10.5_linux_amd64.zip, mode=0755] ***
+2025-03-02 11:57:50,915 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:50,945 p=197396 u=zohaib n=ansible | TASK [CICD : Extract Terraform Binary src=/tmp/terraform_1.10.5_linux_amd64.zip, dest=/usr/local/bin/, remote_src=True] ***
+2025-03-02 11:57:51,731 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:57:51,772 p=197396 u=zohaib n=ansible | TASK [CICD : Install Ansible & Git name=['ansible', 'git'], state=present] *****
+2025-03-02 11:58:12,004 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:58:12,033 p=197396 u=zohaib n=ansible | TASK [CICD : Configure Git with ssh key name=user.email, value=zohaib.ghazi@gmail.com] ***
+2025-03-02 11:58:12,238 p=197396 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 11:58:12,266 p=197396 u=zohaib n=ansible | TASK [CICD : Git Clone using ssh key repo=git@github.com:Zohaib-Ghazi/Homelab.git, dest=/home/s_admin/git-repos/Homelab, accept_hostkey=True] ***
+2025-03-02 11:58:12,807 p=197396 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "cmd": "/usr/bin/git clone --origin origin '' /home/s_admin/git-repos/Homelab", "msg": "Cloning into '/home/s_admin/git-repos/Homelab'...\nWarning:********@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.", "rc": 128, "stderr": "Cloning into '/home/s_admin/git-repos/Homelab'...\nWarning: Permanently added 'github.com' (ED25519) to the list of known hosts.\r\ngit@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n", "stderr_lines": ["Cloning into '/home/s_admin/git-repos/Homelab'...", "Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.", "git@github.com: Permission denied (publickey).", "fatal: Could not read from remote repository.", "", "Please make sure you have the correct access rights", "and the repository exists."], "stdout": "", "stdout_lines": []}
+2025-03-02 11:58:12,808 p=197396 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 11:58:12,809 p=197396 u=zohaib n=ansible | 10.0.0.101                 : ok=18   changed=12   unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 11:58:12,809 p=197396 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2025-03-02 12:01:06,246 p=199070 u=zohaib n=ansible | PLAY [Bootstrap Infrastructure Playbook] ***************************************
+2025-03-02 12:01:06,291 p=199070 u=zohaib n=ansible | TASK [Install all available updates on Ubuntu Server(s) upgrade=dist, update_cache=True] ***
+2025-03-02 12:01:07,840 p=199070 u=zohaib n=ansible | fatal: [10.0.0.102]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 10.0.0.102 port 22: No route to host", "unreachable": true}
+2025-03-02 12:02:46,160 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:46,182 p=199070 u=zohaib n=ansible | TASK [Install qemu-guest-agent on Ubuntu Server(s) name=qemu-guest-agent, state=present] ***
+2025-03-02 12:02:46,575 p=199070 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 12:02:46,607 p=199070 u=zohaib n=ansible | TASK [Create ansible service user account name=s_admin, groups=root] ***********
+2025-03-02 12:02:46,880 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:46,911 p=199070 u=zohaib n=ansible | TASK [add sudoers file for ansible service user account 's_admin' src=sudoer_s_admin, dest=/etc/sudoers.d/s_admin, owner=root, group=root, mode=288] ***
+2025-03-02 12:02:47,282 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:47,298 p=199070 u=zohaib n=ansible | TASK [add ssh key for ansible boostrap service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 12:02:47,553 p=199070 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 12:02:47,609 p=199070 u=zohaib n=ansible | PLAY [all] *********************************************************************
+2025-03-02 12:02:47,634 p=199070 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 12:02:48,264 p=199070 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 12:02:48,306 p=199070 u=zohaib n=ansible | TASK [base : add ssh key for ansible service user account 's_admin' user=s_admin, key=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible] ***
+2025-03-02 12:02:48,458 p=199070 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 12:02:48,503 p=199070 u=zohaib n=ansible | PLAY [CICD] ********************************************************************
+2025-03-02 12:02:48,536 p=199070 u=zohaib n=ansible | TASK [Gathering Facts gather_subset=['all'], gather_timeout=10] ****************
+2025-03-02 12:02:49,008 p=199070 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 12:02:49,050 p=199070 u=zohaib n=ansible | TASK [CICD : Refresh repository indexes on available Ubuntu Server(s) update_cache=True] ***
+2025-03-02 12:02:49,805 p=199070 u=zohaib n=ansible | ok: [10.0.0.101]
+2025-03-02 12:02:49,829 p=199070 u=zohaib n=ansible | TASK [CICD : Install unzip name=['unzip', 'nfs-common', 'nano'], state=present] ***
+2025-03-02 12:02:54,405 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:54,462 p=199070 u=zohaib n=ansible | TASK [CICD : Mount an NFS volume src=10.0.0.233:/mnt/StorageDisk/NFS, path=/mnt/NFS, opts=rw,sync,hard, state=mounted, fstype=nfs] ***
+2025-03-02 12:02:54,785 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:54,812 p=199070 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=/mnt/NFS/files/ansible.pub, dest=/home/s_admin/.ssh/ansible.pub, owner=s_admin, group=s_admin, mode=493, remote_src=True] ***
+2025-03-02 12:02:54,947 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:54,967 p=199070 u=zohaib n=ansible | TASK [CICD : Copy files from src to .ssh folder src=/mnt/NFS/files/ansible, dest=/home/s_admin/.ssh/ansible, owner=s_admin, group=s_admin, mode=493, remote_src=True] ***
+2025-03-02 12:02:55,099 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:55,112 p=199070 u=zohaib n=ansible | TASK [CICD : Download Terraform binary url=https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip, dest=/tmp/terraform_1.10.5_linux_amd64.zip, mode=0755] ***
+2025-03-02 12:02:56,237 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:56,272 p=199070 u=zohaib n=ansible | TASK [CICD : Extract Terraform Binary src=/tmp/terraform_1.10.5_linux_amd64.zip, dest=/usr/local/bin/, remote_src=True] ***
+2025-03-02 12:02:57,030 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:02:57,068 p=199070 u=zohaib n=ansible | TASK [CICD : Install Ansible & Git name=['ansible', 'git'], state=present] *****
+2025-03-02 12:03:18,442 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:03:18,466 p=199070 u=zohaib n=ansible | TASK [CICD : Configure Git with ssh key name=user.email, value=zohaib.ghazi@gmail.com] ***
+2025-03-02 12:03:18,673 p=199070 u=zohaib n=ansible | changed: [10.0.0.101]
+2025-03-02 12:03:18,704 p=199070 u=zohaib n=ansible | TASK [CICD : Git Clone using ssh key repo=git@github.com:Zohaib-Ghazi/Homelab.git, dest=/home/s_admin/git-repos/Homelab, accept_hostkey=True] ***
+2025-03-02 12:03:19,253 p=199070 u=zohaib n=ansible | fatal: [10.0.0.101]: FAILED! => {"changed": false, "cmd": "/usr/bin/git clone --origin origin '' /home/s_admin/git-repos/Homelab", "msg": "Cloning into '/home/s_admin/git-repos/Homelab'...\nWarning:********@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.", "rc": 128, "stderr": "Cloning into '/home/s_admin/git-repos/Homelab'...\nWarning: Permanently added 'github.com' (ED25519) to the list of known hosts.\r\ngit@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n", "stderr_lines": ["Cloning into '/home/s_admin/git-repos/Homelab'...", "Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.", "git@github.com: Permission denied (publickey).", "fatal: Could not read from remote repository.", "", "Please make sure you have the correct access rights", "and the repository exists."], "stdout": "", "stdout_lines": []}
+2025-03-02 12:03:19,255 p=199070 u=zohaib n=ansible | PLAY RECAP *********************************************************************
+2025-03-02 12:03:19,255 p=199070 u=zohaib n=ansible | 10.0.0.101                 : ok=17   changed=11   unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2025-03-02 12:03:19,256 p=199070 u=zohaib n=ansible | 10.0.0.102                 : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   

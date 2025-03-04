@@ -12,7 +12,37 @@
     name: 
       - unzip
       - nfs-common
+      - nano
     state: present
+
+- name: Mount an NFS volume
+  tags: nfs_mount
+  ansible.posix.mount:
+    src: "TRUENAS:/mnt/StorageDisk/NFS"
+    path: "/mnt/NFS"
+    opts: rw,sync,hard
+    state: mounted
+    fstype: nfs
+
+- name: Copy files from src to .ssh folder
+  tags: cicd_install
+  copy:
+    src: "/mnt/NFS/files/ansible.pub"
+    dest: "/home/s_admin/.ssh/ansible.pub"
+    owner: s_admin
+    group: s_admin
+    mode: 0755
+    remote_src: yes
+
+- name: Copy files from src to .ssh folder
+  tags: cicd_install
+  copy:
+    src: "/mnt/NFS/files/ansible"
+    dest: "/home/s_admin/.ssh/ansible"
+    owner: s_admin
+    group: s_admin
+    mode: 0755
+    remote_src: yes
 
 - name: Download Terraform binary
   get_url:
@@ -25,7 +55,6 @@
     src: "/tmp/terraform_1.10.5_linux_amd64.zip"
     dest: "/usr/local/bin/"
     remote_src: yes
-    #mode: 0755
 
 - name: Install Ansible & Git
   tags: cicd_install
@@ -35,14 +64,15 @@
       - git
     state: present
 
-- name: Configure Git with ssh key
+- name: Configure Git
   tags: cicd_install
   git_config:
     name: user.email
     value: "zohaib.ghazi@gmail.com" #Change this to vairable holding email address
 
-- name: Git Clone using ssh key
+- name: Git Clone using ansible ssh key
   tags: cicd_install
   git:
     repo: "git@github.com:Zohaib-Ghazi/Homelab.git"
     dest: "/home/s_admin/git-repos/Homelab"
+    accept_hostkey: true #Remove once PKI has been established

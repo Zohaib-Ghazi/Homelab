@@ -2,7 +2,7 @@
 - name: install curl & jq
   apt:
     name: 
-      - curl 
+      - curl
       - jq
 
 - name: Download Vault

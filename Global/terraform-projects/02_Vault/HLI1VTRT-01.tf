@@ -1,4 +1,4 @@
-#Naming scheme: HL = home lab; X1 = Production; SSTF = support services Terraform
+#Naming scheme: HL = home lab; X1 = Production; VTRT = Vault Root CA Server
 #Version 1.0.0
 resource "proxmox_vm_qemu" "HLI1VTRT-01" {
     
@@ -36,13 +36,13 @@ resource "proxmox_vm_qemu" "HLI1VTRT-01" {
     #VM Cloud-Init Settings
     os_type = "cloud-init" #The OS type of the image clone
     nameserver = var.VM_DNS
-    #ipconfig0 = "ip=10.0.0.130/24,gw=10.0.0.1"
+    #ipconfig0 = "ip=10.0.0.102/24,gw=10.0.0.1"
     #ipconfig0 = "ip=dhcp"
     skip_ipv6 = true
     qemu_os = "l26"
 
     #Network Configurations: IP Address and Gateway
-    ipconfig0 = "ip=10.0.0.101/24,gw=10.0.0.1"
+    ipconfig0 = "ip=10.0.0.102/24,gw=10.0.0.1"
     
     # (Optional) Host VM User Credentials
     ciuser = var.ciuser
@@ -97,7 +97,7 @@ resource "null_resource" "HLI1VTRT-01-Ansible-Execution" {
       type = "ssh"
       user = var.ansible_user
       private_key = file("${var.private_key_path}")
-      host = "10.0.0.101" #self.ip_address 
+      host = "10.0.0.102" #self.ip_address 
     }
   }
 

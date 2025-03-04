@@ -1,5 +1,5 @@
 #Naming scheme: HL = home lab; X1 = Production; CICD = Services to support CICD pipeline
-#Version 0.3.0
+#Version 1.0.0
 resource "proxmox_vm_qemu" "HLI1CICD-BS" {
     
     #VM General Settings
@@ -95,7 +95,7 @@ resource "null_resource" "HLI1CICD-BS-Ansible-Execution" {
   #  }
 
   provisioner "remote-exec" {
-    inline = ["echo 'Ansible can now reach this resource!'"]
+    inline = ["echo 'Ansible can now reach this resource! at the IP Address: ${proxmox_vm_qemu.HLI1CICD-BS.default_ipv4_address}'"]
 
     connection {
       type = "ssh"
