@@ -32,7 +32,7 @@ variable "proxmox_api_token_secret" {
 }
 
 variable "VM_DNS" {
-    description = "DNS Server IP(s)"
+    description = "Public DNS Server IPs"
     type = string
     default = "1.1.1.1 8.8.8.8"
 }
@@ -74,4 +74,28 @@ variable "public_key_path" {
 variable "directory" {
     description = "Current Working Directory for Terraform & Ansible"
     type = string
+}
+
+variable "ip_range_start" {
+    description = "IP Range Start"
+    type = string
+    default = "10.0.0.101"
+}
+
+variable "ip_range_end" {
+    description = "IP Range Start"
+    type = string
+    default = "10.0.0.200"
+}
+
+variable "subnet_mask" {
+    description = "Subnet Mask"
+    type = string
+    default = "24"
+}
+
+variable "gateway" {
+    description = "Gateway"
+    type = string
+    default = "10.0.0.1"
 }

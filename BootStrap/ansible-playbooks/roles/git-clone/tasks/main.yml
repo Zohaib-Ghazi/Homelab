@@ -1,0 +1,7 @@
+---
+- name: Git Clone using ansible ssh key
+  tags: cicd_install, git_clone
+  git:
+    repo: "git@github.com:Zohaib-Ghazi/Homelab.git"
+    dest: "/home/s_admin/git-repo"
+    accept_hostkey: true #Remove once PKI has been established

@@ -6,7 +6,7 @@ resource "proxmox_vm_qemu" "HLI1VTRT-01" {
     target_node = var.proxmox_nas_host 
     vmid = "301"
     name = "HLI1VTRT01"
-    desc = "Production Vault Root CA"
+    desc = "IIT Vault Root CA"
 
     #VM Advanced Settings
     onboot = false 
@@ -24,7 +24,7 @@ resource "proxmox_vm_qemu" "HLI1VTRT-01" {
     cores = 2
     sockets = 1
     cpu = "host"    
-    memory = 2048
+    memory = 4096 
 
     #VM Network Settings
     network {
@@ -91,7 +91,7 @@ resource "proxmox_vm_qemu" "HLI1VTRT-01" {
 
 resource "null_resource" "HLI1VTRT-01-Ansible-Execution" {
   provisioner "remote-exec" {
-    inline = ["echo 'Ansible can now reach this resource!'"]
+    inline = ["echo 'Ansible will now be able to reach this VM!'"]
 
     connection {
       type = "ssh"
