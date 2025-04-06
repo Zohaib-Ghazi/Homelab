@@ -76,6 +76,12 @@ variable "directory" {
     type = string
 }
 
+variable "ip_address" {
+    description = "IP Address"
+    type = string
+    default = "10.0.0.6"
+}
+
 variable "ip_range_start" {
     description = "IP Range Start"
     type = string

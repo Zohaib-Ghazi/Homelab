@@ -1,0 +1,40 @@
+---
+- name: Create a vault user
+  ansible.builtin.user:
+    name: vault
+    comment: "Vault Service User"
+    shell: /bin/bash
+    home: /home/vault
+    createhome: no
+  become: true
+  register: vault_user_created
+  
+- name: Add s_admin user to vault group
+  ansible.builtin.user:
+    name: s_admin
+    groups: vault
+    append: yes
+  become: true
+  register: s_admin_in_vault_group
+
+- name: Create the vault directory
+  ansible.builtin.file:
+    path: /opt/vault/data
+    state: directory
+    mode: 0770
+    owner: vault
+    group: vault
+    recurse: yes
+  become: true
+  register: vault_data_dir_created
+  
+- name: Create the vault tls directory
+  ansible.builtin.file:
+    path: /opt/vault/tls
+    state: directory
+    mode: 0770
+    owner: vault
+    group: vault
+    recurse: yes
+  become: true
+  register: vault_tls_dir_created

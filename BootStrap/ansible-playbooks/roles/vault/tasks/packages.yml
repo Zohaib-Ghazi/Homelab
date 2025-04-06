@@ -1,0 +1,7 @@
+---
+- name: Install Tools - curl, jq, openssl, nano
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  register: vault_tools_installed
