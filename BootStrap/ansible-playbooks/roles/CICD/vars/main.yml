@@ -1,0 +1,10 @@
+---
+packages: 
+  - curl
+  - jq
+  - nano
+  - openssl
+  - net-tools
+  - openjdk-21-jdk
+  - nfs-common
+jenkins_homedir: "/opt/jenkins/data"

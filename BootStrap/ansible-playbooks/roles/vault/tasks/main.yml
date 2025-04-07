@@ -14,7 +14,7 @@
   #register: vault_config_copied
   #Run everytime to update the config file
 
-- name: Download GPG key
+- name: Download Hashicorp Vault GPG key
   ansible.builtin.shell:
     cmd: |
       gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys AA16FCBCA621E701

@@ -1,0 +1,40 @@
+---
+- name: Create a Jenkins user
+  ansible.builtin.user:
+    name: jenkins
+    comment: "Jenkins Service User"
+    shell: /bin/bash
+    home: /home/jenkins
+    createhome: no
+  become: true
+  register: jenkins_user_created
+  
+- name: Add s_admin user to jenkins group
+  ansible.builtin.user:
+    name: s_admin
+    groups: jenkins
+    append: yes
+  become: true
+  register: s_admin_in_jenkins_group
+
+- name: Create the jenkins directory
+  ansible.builtin.file:
+    path: /opt/jenkins/data
+    state: directory
+    mode: 0770
+    owner: jenkins
+    group: jenkins
+    recurse: yes
+  become: true
+  register: jenkins_data_dir_created
+  
+#- name: Create the vault tls directory
+#  ansible.builtin.file:
+#    path: /opt/vault/tls
+#    state: directory
+#    mode: 0770
+#    owner: vault
+#    group: vault
+#    recurse: yes
+#  become: true
+#  register: vault_tls_dir_created

@@ -7,10 +7,9 @@
   roles:
     - base
 
-#- hosts: CICD
-#  become: yes
-#   roles:
-#     - CICD
+- hosts: Jenkins
+  roles:
+    - CICD
 
 #- hosts: CICD
 #  roles:

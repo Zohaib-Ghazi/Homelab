@@ -11,19 +11,19 @@ terraform {
 
 locals {
     #List of IP addresses in given range
-    ip_list = [for i in range(var.ip_range_start, var.ip_range_end): "10.0.0.${i}"]
+    ipv4 = "${var.ip_address}"
     target_host = var.proxmox_target_host == "perf" ? var.proxmox_perf_host : var.proxmox_nas_host
-    ansible_inventory = var.vm_name_suffix == "vault" ? "[vault]" : "[TF-VM]"
+    ansible_inventory = "[${var.vm_name_suffix}]"
 }
 
 #Proxmox VM Resource Configuration
 resource "proxmox_vm_qemu" "TF_VM" {
     
     #Count of VMs to be created
-    count = length(local.ip_list)
+    #count = length(local.ip_list)
 
     #VM Name & ID
-    name = "TF-VM-${var.vm_name_suffix}-${count.index + 1}"
+    name = "TF-VM-${var.vm_name_suffix}"
     vmid = var.vm_vmid
     #tags = #TODO: Implement tags for VMs
 
@@ -128,7 +128,7 @@ resource "proxmox_vm_qemu" "TF_VM" {
     }
       
     #IP Configurations
-    ipconfig0 = "ip=${local.ip_list[count.index]}/${var.subnet_mask},gw=${var.gateway}"
+    ipconfig0 = "ip=${var.ip_address}/${var.subnet_mask},gw=${var.gateway}"
     nameserver = var.VM_DNS
     
     #Public SSH Keys
@@ -149,13 +149,13 @@ resource "proxmox_vm_qemu" "TF_VM" {
 
 #Ansible "Dynamic" Inventory File 
 #TODO: Implement a more dynamic inventory file that can search and add based on input parameters
-resource "local_file" "ansible_inventory" {
-    filename = "${var.directory}/Inventory/inventory.ini"
-    content = <<EOF
-${local.ansible_inventory}
-${join("\n", local.ip_list)}
-EOF
-}
+#resource "local_file" "ansible_inventory" {
+#    filename = "${var.directory}/Inventory/inventory.ini"
+#    content = <<EOF
+#${local.ansible_inventory}
+#${local.ipv4}
+#EOF
+#}
 
 resource "null_resource" "Module-Ansible-Execution" {
   provisioner "remote-exec" {
@@ -165,7 +165,7 @@ resource "null_resource" "Module-Ansible-Execution" {
       type = "ssh"
       user = var.ansible_user
       private_key = file("${var.private_key_path}")
-      host = "10.0.0.101" #self.ip_address df
+      host = "${var.ip_address}"
     }
   }
 

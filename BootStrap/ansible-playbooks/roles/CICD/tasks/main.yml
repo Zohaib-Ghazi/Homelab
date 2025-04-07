@@ -1,80 +1,40 @@
 ---
-- name: Refresh repository indexes on available Ubuntu Server(s)
-  tags: always, ubuntu
+- import_tasks: packages.yml
+- import_tasks: iam.yml
+
+- name: Download Jenkins GPG key
+  get_url:
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+    dest: "/usr/share/keyrings/jenkins-keyring.asc"
+    mode: 0775
+  register: jenkins_gpg_key_downloaded
+  become: yes
+
+- name: Add Jenkins repo to source list and provide the auth key
+  ansible.builtin.shell:
+    cmd: |
+      echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+  register: sources_list_updated
+  become: yes
+  when: jenkins_gpg_key_downloaded.changed
+
+- name: Refresh apt repo 
   apt:
     update_cache: true
-  changed_when: false #Prevents ansible from reporting an updated simply from a repo update
+  become: yes
 
-- name: Install unzip
-  tags: linux_tools
+- name: Install Jenkins
   apt:
     name: 
-      - unzip
-      - nfs-common
-      - nano
+      - jenkins
     state: present
+  become: yes
+  register: jenkins_installed
 
-- name: Mount an NFS volume
-  tags: nfs_mount
-  ansible.posix.mount:
-    src: "10.0.0.233:/mnt/StorageDisk/NFS" #Change this to the NFS DNS name
-    path: "/mnt/NFS"
-    opts: rw,sync,hard
-    state: mounted
-    fstype: nfs
-
-- name: Copy pub file from src to .ssh folder
-  tags: cicd_install
-  copy:
-    src: "/mnt/NFS/files/ansible.pub"
-    dest: "/home/s_admin/.ssh/id_ed25519.pub"
-    owner: s_admin
-    group: s_admin
-    mode: 0775
-    remote_src: yes
-
-- name: Copy priv file from src to .ssh folder
-  tags: cicd_install
-  copy:
-    src: "/mnt/NFS/files/ansible"
-    dest: "/home/s_admin/.ssh/id_ed25519"
-    owner: s_admin
-    group: s_admin
-    mode: 0600
-    remote_src: yes
-
-- name: Copy known_hosts file from src to .ssh folder
-  tags: cicd_install
-  copy:
-    src: "/mnt/NFS/files/known_hosts"
-    dest: "/home/s_admin/.ssh/known_hosts"
-    owner: s_admin
-    group: s_admin
-    mode: 0775
-    remote_src: yes
-
-- name: Download Terraform binary
-  get_url:
-    url: "https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip"
-    dest: "/tmp/terraform_1.10.5_linux_amd64.zip"
-    mode: 0775
-
-- name: Extract Terraform Binary
-  unarchive:
-    src: "/tmp/terraform_1.10.5_linux_amd64.zip"
-    dest: "/usr/local/bin/"
-    remote_src: yes
-
-- name: Install Ansible & Git
-  tags: cicd_install
-  apt:
-    name: 
-      - ansible
-      - git
-    state: present
-
-- name: Configure Git
-  tags: cicd_install
-  git_config:
-    name: user.email
-    value: "zohaib.ghazi@gmail.com" #Change this to variable
+- name: enable jenkins service
+  ansible.builtin.systemd:
+    name: jenkins
+    enabled: true
+    state: started
+  become: yes
+  when: jenkins_installed.changed
