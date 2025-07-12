@@ -35,7 +35,7 @@ variable "vm_cpu" {
 variable "vm_memory" {
     description = "VM Memory"
     type = number
-    default = 4096
+    default = 2048
 }
 
 variable "vm_network_model" {
@@ -162,4 +162,10 @@ variable "qemu_agent" {
     description = "QEMU Agent"
     type = number
     default = 1
+}
+
+variable "ansible_vault_folderpath" {
+    description = "Ansible Vault Folder Path"
+    type = string
+    default = "../../../ansible-playbooks/roles/vault/files/"
 }

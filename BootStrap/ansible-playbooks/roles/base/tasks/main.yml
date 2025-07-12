@@ -4,3 +4,4 @@
   authorized_key:
     user: s_admin
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"
+  register: ssh_key_result

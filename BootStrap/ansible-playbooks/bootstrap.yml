@@ -9,20 +9,21 @@
       apt:
         upgrade: dist
         update_cache: true
-      #when: ansible_distribution == "Ubuntu"
-        
+      register: update_result
+
     - name: Install qemu-guest-agent on Ubuntu Server(s)
       tags: always, ubuntu
       apt:
         name: qemu-guest-agent
         state: present
-      #when: ansible_distribution == "Ubuntu"
+      register: qemu_guest_agent_result
 
     - name: Create ansible service user account
       tags: always, ansible_service_admin
       user:
         name: s_admin
         groups: root
+      register: user_result
 
     - name: add sudoers file for ansible service user account 's_admin'
       tags: always, ansible_service_admin
@@ -32,6 +33,7 @@
         owner: root
         group: root
         mode: 0440
+      register: sudoers_result
       
   #  - name: Generate ssh keypair using ed25519 protocol on CICD server
   #    tags: sshkeygen
@@ -59,3 +61,4 @@
       authorized_key:
         user: s_admin
         key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIII7afkGjYMkT4mbAGNPyMDfoKYlMZmzK/anb5unEfZP ansible"
+      register: ssh_key_result

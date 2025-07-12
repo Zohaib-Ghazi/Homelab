@@ -1,0 +1,201 @@
+---
+- import_tasks: packages.yml
+- import_tasks: iam.yml
+
+#Hashicorp Vault + Ansible Guide: https://medium.com/@mitesh_shamra/setup-hashicorp-vault-using-ansible-fa8073a70a56
+
+- name: Copy vault-config to dest
+  ansible.builtin.copy:
+    src: vault-config.hcl
+    dest: "{{ vault_config }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0770
+  become: yes
+
+- name: Copy vault service config to dest
+  ansible.builtin.copy:
+    src: vault.service
+    dest: "{{ vault_service_dest }}"
+    owner: root
+    group: root
+    #mode: 0770
+  become: yes
+  #TODO notify: systemd_reload
+
+- name: restart systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: Download Hashicorp Vault GPG key
+  ansible.builtin.shell:
+    cmd: |
+      gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys AA16FCBCA621E701
+      gpg --export AA16FCBCA621E701 | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  register: gpg_key_downloaded
+  
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+  become: yes
+
+- name: Install Vault
+  ansible.builtin.apt:
+    name: vault
+    # version: #TODO add explicit version 
+    state: present
+  become: yes
+  register: vault_installed
+  
+- name: Verify Vault installation
+  ansible.builtin.shell:
+    cmd: vault --version
+  register: vault_version
+
+- name: Display Vault version
+  ansible.builtin.debug:
+    var: vault_version.stdout
+
+- name: Change owner and group of the vault binary
+  ansible.builtin.file:
+    path: /usr/bin/vault
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    mode: 0750
+  become: yes
+  register: vault_binary_ownership_changed
+
+- name: Display the output of the vault binary ownership change
+  ansible.builtin.debug:
+    var: vault_binary_ownership_changed
+
+- name: Set the vault binary capabilities to allow it to bind to port 8200
+  ansible.builtin.capabilities:
+    path: /usr/bin/vault
+    capability: cap_ipc_lock+ep
+    state: present
+  become: yes
+  register: vault_capabilities_set
+
+- name: Display the output of the vault capabilities set
+  ansible.builtin.debug:
+    var: vault_capabilities_set
+  
+
+#TODO: Add logic to check if running as first-time setup or after-the-fact, as to prevent the self-signed cert from being generated again
+- name: Generate a self-signed TLS certificate (including DNS value) and private key
+  ansible.builtin.shell:
+    cmd: |
+      openssl req -x509 -newkey rsa:4096 -sha256 -days 365 \
+      -nodes -keyout /opt/vault/tls/vault-key.pem -out /usr/local/share/ca-certificates/vault-cert.crt \
+      -subj "/O=Homelab/CN=naizoyden.net" \
+      -addext "subjectAltName = DNS:PROD-RootCA.naizoyden.net,IP:10.0.0.101"
+  become: yes
+  register: tls_cert_generated
+
+#- name: Generate a self-signed TLS certificate (including DNS value) and private key
+#  ansible.builtin.shell:
+#    cmd: |
+#      openssl req -x509 -newkey rsa:4096 -sha256 -days 365 \
+#      -nodes -keyout /opt/vault/tls/vault-key.pem -out /opt/vault/tls/vault-cert.pem \
+#      -subj "/O=Homelab/CN=naizoyden.net" \
+#      -addext "subjectAltName = DNS:PROD-RootCA.naizoyden.net,IP:10.0.0.101"
+#  become: yes
+#  register: tls_cert_generated
+
+- name: run update-ca-certificates command to update the CA certificates
+  ansible.builtin.command:
+    cmd: update-ca-certificates
+  become: yes
+  register: ca_certificates_updated
+
+- name: Change ownership of the CA & certificate files to be owned by root and world-readable
+  ansible.builtin.file:
+    path: "{{ vault_CACert }}"
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  register: cert_ownership_changed  
+
+- name: Change ownership of the private key to allow the Vault service to read the file, and only be readable by the Vault service
+  ansible.builtin.file:
+    path: "{{ vault_key }}"
+    owner: root
+    group: "{{ vault_group }}"
+    mode: 0640
+  become: yes
+  register: key_ownership_changed
+
+- name: Display the output of the private key ownership change
+  ansible.builtin.debug:
+    var: key_ownership_changed
+
+- name: set Vault global environment variables
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    line: '{{ item }}'
+    state: present
+  with_items:
+    - 'VAULT_ADDR="{{ vault_addr }}"'
+    - 'VAULT_CACERT="{{ vault_CACert }}"'
+  become: yes
+  register: vault_env_vars_set
+
+- name: Enable vault service to start on boot
+  ansible.builtin.systemd:
+    name: vault
+    enabled: yes
+  become: yes
+  register: vault_service_enabled
+
+- name: Restart server to apply changes and ensure vault service starts correctly
+  ansible.builtin.reboot:
+    msg: "Rebooting to apply changes"
+    connect_timeout: 5
+    reboot_timeout: 600
+    test_command: whoami
+  become: yes
+  register: reboot_result
+  when: vault_service_enabled.changed
+
+#Doesnt work below this point
+- name: Initialize the vault as a specific user
+  ansible.builtin.shell:
+    cmd: vault operator init -key-shares=5 -key-threshold=3 -format json
+  register: vault_init
+  #become: yes
+  become_user: "{{ vault_user }}"
+  when: vault_init.changed is not defined or vault_init.changed
+
+- name: Output the vault init command and save to file
+  ansible.builtin.debug:
+    var: vault_init.stdout
+  delegate_to: localhost
+
+- name: Save the vault init output to a file
+  ansible.builtin.copy:
+    content: "{{ vault_init.stdout }}"
+    dest: "{{ unseal_dir }}/vault_init.json"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  become: yes
+
+
+#- name: Unseal vault by providing unseal key
+#  ansible.builtin.shell:
+#    cmd: vault operator unseal {{ vault_init.stdout_lines[2] }}
+#  become: yes
+#  #become_user: vault
+#  register: vault_unsealed
+
+
+#- name: Login to the vault
+#  ansible.builtin.shell:
+#    cmd: vault login {{ vault_init.stdout_lines[4] }}
+#  become: yes
+#  #become_user: vault  
+#  register: vault_logged_in

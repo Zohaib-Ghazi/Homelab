@@ -1,14 +1,3 @@
-terraform {
-  required_version = "=1.10.5"
-
-  required_providers {
-    proxmox = {
-        source = "telmate/proxmox"
-        version = "3.0.1-rc4"
-    }
-  }
-}
-
 locals {
     #List of IP addresses in given range
     ipv4 = "${var.ip_address}"
@@ -22,12 +11,12 @@ resource "proxmox_vm_qemu" "TF_VM" {
     #Count of VMs to be created
     #count = length(local.ip_list)
 
-    #VM Name & ID
-    name = "TF-VM-${var.vm_name_suffix}"
+    #VM Name (Required for Proxmox) & ID 
+    name = "PROD-${var.vm_name_suffix}"
     vmid = var.vm_vmid
     #tags = #TODO: Implement tags for VMs
 
-    #VM Target Host Node
+    #VM Target Host Node (Required for Proxmox)
     target_node = local.target_host
     
     #VM Template Image

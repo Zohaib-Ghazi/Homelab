@@ -1,0 +1,75 @@
+---
+- name: Create vault user group
+  ansible.builtin.group:
+    name: "{{ vault_group }}"
+    state: present
+  become: true
+
+- name: Create a vault user
+  ansible.builtin.user:
+    name: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    system: yes
+    shell: "/sbin/nologin"
+    comment: "vault nologin User"
+    createhome: no
+    state: present
+  become: true
+  
+- name: Add service_account_admin to vault group
+  ansible.builtin.user:
+    name: "{{ service_account_admin }}"
+    groups: "{{ vault_group }}"
+    state: present
+    append: yes
+  become: true
+
+- name: Create the vault data directory
+  ansible.builtin.file:
+    path: "{{ vault_data_dir }}"
+    state: directory
+    mode: 0770
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    recurse: yes
+  become: true
+  
+- name: Create the vault tls directory
+  ansible.builtin.file:
+    path: "{{ vault_tls_dir }}"
+    state: directory
+    mode: 0770
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    recurse: yes
+  become: true
+
+- name: Create the unseal directories
+  ansible.builtin.file:
+    path: "{{ unseal_dir }}"
+    state: directory
+    mode: 0770
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    recurse: yes
+  become: true
+
+- name: Create the root key directory
+  ansible.builtin.file:
+    path: "{{ root_key_dir }}"
+    state: directory
+    mode: 0770
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    recurse: yes
+  become: true
+
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of RootCA VM
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.101"
+    line: "10.0.0.101 PROD-IntermediateCA.naizoyden.net PROD-IntermediateCA"
+    state: present
+  become: true
+  tags: network

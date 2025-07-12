@@ -1,8 +1,0 @@
----
-packages: 
-  - curl
-  - jq
-  - nano
-  - openssl
-  - net-tools
-vault_addr: "https://10.0.0.101:8200"

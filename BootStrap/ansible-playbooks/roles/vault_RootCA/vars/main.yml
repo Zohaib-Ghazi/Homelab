@@ -1,0 +1,22 @@
+---
+packages: 
+  - curl
+  - jq
+  - nano
+  - openssl
+  - net-tools
+  - iputils-ping
+  - dnsutils
+vault_addr: "https://PROD-RootCA.naizoyden.net:8200"
+vault_CACert: "/usr/local/share/ca-certificates/vault-cert.crt"
+#vault_CACert: "/opt/vault/tls/vault-cert.pem"
+vault_key: "/opt/vault/tls/vault-key.pem"
+vault_config: "/opt/vault/vault-config.hcl"
+vault_service_dest: "/etc/systemd/system/vault.service"
+vault_group: "vault"
+vault_user: "vault"
+service_account_admin: "s_admin"
+unseal_dir: "/opt/vault/unseal"
+root_key_dir: "/opt/vault/root_key"
+vault_data_dir: "/opt/vault/data"
+vault_tls_dir: "/opt/vault/tls"

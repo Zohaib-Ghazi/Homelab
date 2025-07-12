@@ -7,15 +7,20 @@
   roles:
     - base
 
-- hosts: Jenkins
-  roles:
-    - CICD
+#- hosts: Jenkins
+#  roles:
+#    - CICD
 
 #- hosts: CICD
 #  roles:
 #    - git-clone # This role is to run the git clone command as non-root user
 
-- hosts: vault
+- hosts: vault_RTCA
   #become: yes
   roles:
-    - vault
+    - vault_RootCA
+
+- hosts: vault_IntCA
+  #become: yes
+  roles:
+    - vault_SubCA

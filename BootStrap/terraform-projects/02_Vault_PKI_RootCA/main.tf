@@ -1,21 +1,21 @@
-module "proxmox-vm" {
+module "Vault-RootCA" {
     source = "../modules/proxmox-vm"
-    vm_cores = 2
-    vm_memory = 4096
-    qemu_agent = 1
-    vm_name_suffix = "Jenkins"
-    vm_vmid = "303"
+    #vm_cores = 2
+    #qemu_agent = 1
+    vm_name_suffix = "RootCA"
+    vm_vmid = "301"
     proxmox_target_host = "perf"
     vm_storage_source = "local-lvm"
-    vm_disk_size = "50G"
+    #vm_disk_size = "32G"
     ansible_user = var.ansible_user
-    ip_address = "10.0.0.102"
-    vm_network_bridge = "vmbr0"
-    vm_network_model = "virtio"
+    ip_address = "10.0.0.101"
+    #vm_network_bridge = "vmbr0"
+    #vm_network_model = "virtio"
     public_key_path = var.public_key_path
     ciuser = var.ciuser
     cipassword = var.cipassword
     private_key_path = var.private_key_path
     sshkeys = var.sshkeys
     directory = var.directory
+    ansible_vault_folderpath = "../../../ansible-playbooks/roles/vault_RootCA/files/"
 }
