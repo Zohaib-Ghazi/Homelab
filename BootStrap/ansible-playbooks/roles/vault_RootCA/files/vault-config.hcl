@@ -7,6 +7,8 @@ default_lease_ttl       = "1h" # Default lease TTL for all secrets
 disable_mlock           = true # System call preventing memory from being swapped to disk. Set to false in production environments with sufficient memory.
 disable_cache          = true 
 ui                      = true # Disable the UI in production environments
+log_level              = "debug" # Set to "info" or "warn" in production environments
+log_file             = "/opt/vault/logs/vault.log" # Ensure this directory exists and is writable by the vault user
 
 listener "tcp" {
 address       = "0.0.0.0:8200"
@@ -16,7 +18,7 @@ tls_key_file  = "/opt/vault/tls/vault-key.pem"
 tls_disable_client_certs = true # Set to "true" for trusted environments only, until mTLS can be implemented
 }
 
-backend "raft" {
+backend "file" {
 path    = "/opt/vault/data"
-node_id = "vault-node1"
+#node_id = "vault-node1" #
 }

@@ -141,6 +141,8 @@
   with_items:
     - 'VAULT_ADDR="{{ vault_addr }}"'
     - 'VAULT_CACERT="{{ vault_CACert }}"'
+    - 'VAULT_TOKEN=""'
+    - 'LOG_FILE="{{ vault_log_dir }}"'
   become: yes
   register: vault_env_vars_set
 
@@ -161,7 +163,6 @@
   register: reboot_result
   when: vault_service_enabled.changed
 
-#Doesnt work below this point
 - name: Initialize the vault as a specific user
   ansible.builtin.shell:
     cmd: vault operator init -key-shares=5 -key-threshold=3 -format json
@@ -169,11 +170,6 @@
   #become: yes
   become_user: "{{ vault_user }}"
   when: vault_init.changed is not defined or vault_init.changed
-
-- name: Output the vault init command and save to file
-  ansible.builtin.debug:
-    var: vault_init.stdout
-  delegate_to: localhost
 
 - name: Save the vault init output to a file
   ansible.builtin.copy:
@@ -184,7 +180,6 @@
     mode: "0644"
   become: yes
 
-
 #- name: Unseal vault by providing unseal key
 #  ansible.builtin.shell:
 #    cmd: vault operator unseal {{ vault_init.stdout_lines[2] }}
@@ -192,10 +187,15 @@
 #  #become_user: vault
 #  register: vault_unsealed
 
-
 #- name: Login to the vault
 #  ansible.builtin.shell:
 #    cmd: vault login {{ vault_init.stdout_lines[4] }}
 #  become: yes
 #  #become_user: vault  
 #  register: vault_logged_in
+
+#- name: enable vault audit
+#  ansible.builtin.shell:
+#    cmd: vault audit enable file file_path={{ vault_audit_dir }}
+#  become: yes
+#  become_user: "{{ vault_user }}"
