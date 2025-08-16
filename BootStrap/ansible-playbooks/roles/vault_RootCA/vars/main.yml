@@ -9,6 +9,7 @@ packages:
   - dnsutils
 vault_addr: "https://PROD-RootCA.naizoyden.net:8200"
 vault_CACert: "/usr/local/share/ca-certificates/vault-cert.crt"
+vault_CACert_dest: "/usr/local/share/ca-certificates/vault-cert.crt"
 #vault_CACert: "/opt/vault/tls/vault-cert.pem"
 vault_key: "/opt/vault/tls/vault-key.pem"
 vault_config: "/opt/vault/vault-config.hcl"

@@ -111,6 +111,14 @@
   become: yes
   register: ca_certificates_updated
 
+- name: Copy the generated certificate from remote to local using fetch
+  ansible.builtin.copy:
+    src: "{{ vault_CACert }}"
+    dest: "{{ vault_CACert_dest }}"
+    remote_src: yes
+  become: yes
+  register: cert_fetched
+
 - name: Change ownership of the CA & certificate files to be owned by root and world-readable
   ansible.builtin.file:
     path: "{{ vault_CACert }}"
@@ -165,11 +173,11 @@
 
 - name: Initialize the vault as a specific user
   ansible.builtin.shell:
-    cmd: vault operator init -key-shares=5 -key-threshold=3 -format json
+    cmd: vault operator init -key-shares=1 -key-threshold=1 -format json
   register: vault_init
   #become: yes
   become_user: "{{ vault_user }}"
-  when: vault_init.changed is not defined or vault_init.changed
+  when: vault_init is not defined or vault_init.changed
 
 - name: Save the vault init output to a file
   ansible.builtin.copy:
@@ -180,22 +188,49 @@
     mode: "0644"
   become: yes
 
-#- name: Unseal vault by providing unseal key
-#  ansible.builtin.shell:
-#    cmd: vault operator unseal {{ vault_init.stdout_lines[2] }}
-#  become: yes
-#  #become_user: vault
-#  register: vault_unsealed
+- name: Extract the unseal key from the vault init output
+  ansible.builtin.shell: |
+    jq -r '.unseal_keys_b64[0]' {{ unseal_dir }}/vault_init.json
+  become: yes
+  register: vault_unseal_key_extracted
 
-#- name: Login to the vault
-#  ansible.builtin.shell:
-#    cmd: vault login {{ vault_init.stdout_lines[4] }}
-#  become: yes
-#  #become_user: vault  
-#  register: vault_logged_in
+- name: Extract the root key from the vault init output
+  ansible.builtin.shell: |
+   jq -r '.root_token' {{ unseal_dir }}/vault_init.json
+  become: yes
+  register: vault_root_token_extracted
 
-#- name: enable vault audit
-#  ansible.builtin.shell:
-#    cmd: vault audit enable file file_path={{ vault_audit_dir }}
-#  become: yes
-#  become_user: "{{ vault_user }}"
+- name: set fact for vault unseal key
+  ansible.builtin.set_fact:
+    vault_unseal_key: "{{ vault_unseal_key_extracted.stdout }}"
+    vault_root_token: "{{ vault_root_token_extracted.stdout }}"
+
+#- name: Display the vault unseal key
+#  ansible.builtin.debug:
+#    msg: "Vault Unseal Key: {{ vault_unseal_key }}"
+
+#- name: Display the vault root token
+#  ansible.builtin.debug:
+#    msg: "Vault Root Token: {{ vault_root_token }}"
+
+- name: set env variable for root token 
+  ansible.builtin.shell: 
+    cmd: echo "export VAULT_TOKEN={{ vault_root_token }}"
+  become: yes 
+
+- name: Unseal vault by providing unseal key
+  ansible.builtin.shell:
+    cmd: vault operator unseal {{ vault_unseal_key }}
+  become_user: vault
+  register: vault_unsealed
+
+- name: Login to the vault
+  ansible.builtin.shell:
+    cmd: vault login {{ vault_root_token }}
+  become_user: vault  
+  register: vault_logged_in
+
+- name: enable vault audit
+  ansible.builtin.shell:
+    cmd: vault audit enable file file_path={{ vault_audit_dir }}
+  become_user: "{{ vault_user }}"
