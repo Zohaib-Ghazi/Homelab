@@ -18,5 +18,5 @@ tls_disable_client_certs = true # Set to "true" for trusted environments only, u
 
 backend "raft" {
 path    = "/opt/vault/data"
-node_id = "vault-node2"
+node_id = "vault-IntCA"
 }

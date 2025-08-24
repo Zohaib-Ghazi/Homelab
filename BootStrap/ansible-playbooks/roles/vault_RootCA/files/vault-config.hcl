@@ -20,5 +20,5 @@ tls_disable_client_certs = true # Set to "true" for trusted environments only, u
 
 backend "file" {
 path    = "/opt/vault/data"
-#node_id = "vault-node1" #
+node_id = "vault-RootCA"
 }

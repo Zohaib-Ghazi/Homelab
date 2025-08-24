@@ -64,12 +64,22 @@
     recurse: yes
   become: true
 
+- name: Create the vault log directory
+  ansible.builtin.file:
+    path: "{{ vault_log_dir }}"
+    state: directory
+    mode: 0770
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+    recurse: yes
+  become: true
+
 #TODO: Temporary until DNS server is configured on network
 - name: If not present, add to /etc/hosts the static IP of RootCA VM
   lineinfile:
     path: /etc/cloud/templates/hosts.debian.tmpl
-    regexp: "^10.0.0.101"
-    line: "10.0.0.101 PROD-IntermediateCA.naizoyden.net PROD-IntermediateCA"
+    regexp: "^10.0.0.102"
+    line: "10.0.0.102 PROD-IntermediateCA.naizoyden.net PROD-IntermediateCA"
     state: present
   become: true
   tags: network

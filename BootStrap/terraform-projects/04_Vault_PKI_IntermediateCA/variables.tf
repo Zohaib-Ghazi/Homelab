@@ -109,5 +109,5 @@ variable "gateway" {
 variable "ansible_vault_folderpath" {
     description = "Ansible Vault Folder Path"
     type = string
-    default = "../../../ansible-playbooks/roles/vault/files/"
+    default = "../../../ansible-playbooks/roles/vault_SubCA/files/"
 }
