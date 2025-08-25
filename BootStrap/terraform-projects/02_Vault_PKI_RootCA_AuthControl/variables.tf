@@ -3,3 +3,8 @@ variable "vault_root_token" {
     type        = string
     sensitive   = true
 }
+
+variable "vault_addr" {
+  type    = string
+  default = "https://PROD-RootCA.naizoyden.net:8200"
+}

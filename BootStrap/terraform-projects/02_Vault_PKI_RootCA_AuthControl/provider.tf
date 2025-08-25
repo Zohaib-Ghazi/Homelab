@@ -10,6 +10,6 @@ terraform {
 }
 
 provider "vault" {
-    address = "https://PROD-RootCA.naizoyden.net:8200"
+    address = "${var.vault_addr}"
     token = "${var.vault_root_token}"
 }
