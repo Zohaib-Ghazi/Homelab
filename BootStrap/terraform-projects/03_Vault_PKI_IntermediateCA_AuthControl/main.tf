@@ -1,14 +1,18 @@
 resource "vault_auth_backend" "TF_userpass" {
-  type = "userpass"
+   provider = vault.pki_int
+   path = "userpass"
+   type = "userpass"
 }
 
+# Create user for admin with admin-vault-policy
 resource "vault_generic_endpoint" "TF-user" {
-   path                 = "auth/${vault_auth_backend.TF_userpass.path}/users/admin"
+   provider = vault.pki_int
+   path                 = "auth/${vault_auth_backend.TF_userpass.path}/users/${var.admin_name}"
    ignore_absent_fields = true
    data_json = <<EOT
    {
       "token_policies": ["admin-vault-policy"],
-      "password": "Passw0rd"
+      "password": "${var.admin_password}"
    }
    EOT
 }

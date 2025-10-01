@@ -1,4 +1,5 @@
 resource "vault_policy" "admin-vault-policy" {
+    provider = vault.pki
     name = "admin-vault-policy"
 
     policy = <<EOT

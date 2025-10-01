@@ -9,13 +9,13 @@ resource "local_file" "root_2025_cert" {
   filename = "Naizoyden-RootCA.crt"
 }
 
-## Save the signed Intermediate CA certificate to a file
-#resource "local_file" "intermediate_ca_cert" {
-#  content  = vault_pki_secret_backend_root_sign_intermediate.intermediate.certificate
-#  filename = "intermediate.cert.pem"
-#}
-
-# Output the signed Intermediate CA certificate
-output "signed_CSR" {
-  value = vault_pki_secret_backend_root_sign_intermediate.intermediate.certificate
+#Comment out
+output "backend_root_object" {
+  value = vault_pki_secret_backend_root_cert.root_2025
 }
+
+#Comment out
+output "signed_object" {
+  value = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert
+}
+

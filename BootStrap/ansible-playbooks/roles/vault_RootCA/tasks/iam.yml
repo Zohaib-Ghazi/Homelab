@@ -78,8 +78,8 @@
 - name: If not present, add to /etc/hosts the static IP of RootCA VM
   lineinfile:
     path: /etc/cloud/templates/hosts.debian.tmpl
-    regexp: "^10.0.0.101"
-    line: "10.0.0.101 PROD-RootCA.naizoyden.net PROD-RootCA"
+    regexp: "^10.0.0.102"
+    line: "10.0.0.102 PROD-RootCA.naizoyden.net PROD-RootCA"
     state: present
   become: true
   tags: network

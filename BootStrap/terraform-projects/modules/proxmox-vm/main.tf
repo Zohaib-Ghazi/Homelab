@@ -1,6 +1,6 @@
 locals {
     #List of IP addresses in given range
-    ipv4 = "${var.ip_address}"
+    ipv4 = var.ip_address
     target_host = var.proxmox_target_host == "perf" ? var.proxmox_perf_host : var.proxmox_nas_host
     ansible_inventory = "[${var.vm_name_suffix}]"
 }
@@ -159,6 +159,6 @@ resource "null_resource" "Module-Ansible-Execution" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.directory}/Inventory/inventory.ini -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/site.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.inventory_path}/Inventory.ini -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/site.yml"
   }
 }

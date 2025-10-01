@@ -2,10 +2,10 @@
 
 - import_playbook: bootstrap.yml
 
-- hosts: all
-  #become: yes
-  roles:
-    - base
+# - hosts: all
+#   #become: yes
+#   roles:
+#     - base
 
 #- hosts: Jenkins
 #  roles:
@@ -15,12 +15,17 @@
 #  roles:
 #    - git-clone # This role is to run the git clone command as non-root user
 
-- hosts: vault_RTCA
+- hosts: TFBE
+  #become: yes
+  roles:
+    - vault_TFBE
+
+- hosts: RootCA
   #become: yes
   roles:
     - vault_RootCA
 
-- hosts: vault_IntCA
+- hosts: IntermediateCA
   #become: yes
   roles:
     - vault_SubCA

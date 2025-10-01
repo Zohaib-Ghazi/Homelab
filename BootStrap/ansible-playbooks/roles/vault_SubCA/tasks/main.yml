@@ -91,19 +91,9 @@
       openssl req -x509 -newkey rsa:4096 -sha256 -days 365 \
       -nodes -keyout /opt/vault/tls/vault-key.pem -out /usr/local/share/ca-certificates/vault-cert.crt \
       -subj "/O=Homelab/CN=naizoyden.net" \
-      -addext "subjectAltName = DNS:PROD-IntermediateCA.naizoyden.net,IP:10.0.0.102"
+      -addext "subjectAltName = DNS:PROD-IntermediateCA.naizoyden.net,IP:10.0.0.103"
   become: yes
   register: tls_cert_generated
-
-#- name: Generate a self-signed TLS certificate (including DNS value) and private key
-#  ansible.builtin.shell:
-#    cmd: |
-#      openssl req -x509 -newkey rsa:4096 -sha256 -days 365 \
-#      -nodes -keyout /opt/vault/tls/vault-key.pem -out /opt/vault/tls/vault-cert.pem \
-#      -subj "/O=Homelab/CN=naizoyden.net" \
-#      -addext "subjectAltName = DNS:PROD-RootCA.naizoyden.net,IP:10.0.0.101"
-#  become: yes
-#  register: tls_cert_generated
 
 - name: run update-ca-certificates command to update the CA certificates
   ansible.builtin.command:

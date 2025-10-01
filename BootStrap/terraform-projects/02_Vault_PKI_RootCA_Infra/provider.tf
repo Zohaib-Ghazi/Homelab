@@ -6,7 +6,41 @@ terraform {
         source = "telmate/proxmox"
         version = "3.0.1-rc4"
     }
+
+    vault = {
+        source  = "hashicorp/vault"
+        version = "5.1.0"
+    }
+
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "= 4.44.0"
+    }
   }
+}
+
+# Configure the Vault Provider
+provider "vault" {
+  address = var.vault_address
+  skip_child_token = true
+  # Authenticate using AppRole and the retrieved role_id and secret_id
+  auth_login {
+    path = "auth/approle/login"
+
+    parameters = {
+      role_id   = var.vault_role_id
+      secret_id = var.vault_secret_id
+    }
+  }
+}
+
+# Configure the AzureRM Provider
+provider "azurerm" {
+  features {}
+  subscription_id = local.subscription_id
+  client_id       = local.client_id
+  client_secret   = local.client_secret
+  tenant_id       = local.tenant_id
 }
 
 #Proxmox API Connectivity Info

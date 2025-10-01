@@ -1,16 +1,11 @@
 module "Vault-IntCA" {
     source = "../modules/proxmox-vm"
-    #vm_cores = 2
-    #qemu_agent = 1
     vm_name_suffix = "IntermediateCA"
-    vm_vmid = "302"
+    vm_vmid = "303"
     proxmox_target_host = "perf"
     vm_storage_source = "local-lvm"
-    #vm_disk_size = "32G"
     ansible_user = var.ansible_user
-    ip_address = "10.0.0.102"
-    #vm_network_bridge = "vmbr0"
-    #vm_network_model = "virtio"
+    ip_address = "10.0.0.103"
     public_key_path = var.public_key_path
     ciuser = var.ciuser
     cipassword = var.cipassword
@@ -18,4 +13,5 @@ module "Vault-IntCA" {
     sshkeys = var.sshkeys
     directory = var.directory
     ansible_vault_folderpath = "../../../ansible-playbooks/roles/vault_SubCA/files/"
+    inventory_path = var.inventory_path
 }

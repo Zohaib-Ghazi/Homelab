@@ -79,7 +79,7 @@ variable "directory" {
 variable "ip_address" {
     description = "IP Address"
     type = string
-    default = "10.0.0.6"
+    default = "99.99.99.99"
 }
 
 variable "ip_range_start" {
@@ -110,4 +110,57 @@ variable "ansible_vault_folderpath" {
     description = "Ansible Vault Folder Path"
     type = string
     default = "../../../ansible-playbooks/roles/vault/files/"
+}
+
+variable "vault_address" {
+    description = "Vault Server Address"
+    type        = string
+    
+}
+
+# variable "vault_root_token" {
+#     description = "Vault Root Token"
+#     type        = string
+#     sensitive   = true
+# }
+
+variable "subscription_id" {
+    description = "Azure Subscription ID"
+    type = string
+    default = ""
+}
+
+variable "client_id" {
+    description = "Azure Client ID"
+    type = string
+    default = ""
+}
+
+variable "client_secret" {
+    description = "Azure Client Secret"
+    type = string
+    default = ""
+}
+
+variable "tenant_id" {
+    description = "Azure Tenant ID"
+    type = string
+    default = ""
+}
+
+variable "vault_role_id" {
+  description = "Vault AppRole Role ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "vault_secret_id" {
+  description = "Vault AppRole Secret ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "inventory_path" {
+    description = "Ansible inventory path of the current project"
+    type = string
 }

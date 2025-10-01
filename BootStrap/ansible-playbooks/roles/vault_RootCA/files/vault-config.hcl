@@ -1,5 +1,4 @@
 api_addr                = "https://PROD-RootCA.naizoyden.net:8200" #insecure until PKI has been deployed and certs generated/applied
-#api_addr                = "https://vault.domain.net:8200" #DNS name for the cluster - incomplete #TODO
 cluster_addr            = "https://PROD-RootCA.naizoyden.net:8201"
 cluster_name            = "vault-cluster"
 max_lease_ttl          = "24h" # Default max lease TTL for all secrets

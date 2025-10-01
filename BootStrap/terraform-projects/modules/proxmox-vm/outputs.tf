@@ -24,11 +24,10 @@ output "dns_config" {
 }
 
 #Using local_file to write the output to a file
-resource "local_file" "vault_output" {
-  #filename = "${var.ansible_vault_folderpath}rootca_vault_output.json"
-  filename = "rootca_vault_output.json"
+resource "local_file" "ansible_inventory" {
+  filename = "Inventory.ini"
   content  = <<EOT
-  VM Name Suffix: ${var.vm_name_suffix}
-  IP Address: ${var.ip_address}
+  [${var.vm_name_suffix}]
+  ${var.ip_address}
   EOT
 }

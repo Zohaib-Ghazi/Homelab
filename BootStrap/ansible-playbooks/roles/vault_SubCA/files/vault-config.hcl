@@ -18,7 +18,7 @@ tls_key_file  = "/opt/vault/tls/vault-key.pem"
 tls_disable_client_certs = true # Set to "true" for trusted environments only, until mTLS can be implemented
 }
 
-backend "raft" {
+backend "file" {
 path    = "/opt/vault/data"
 node_id = "vault-IntCA"
 }

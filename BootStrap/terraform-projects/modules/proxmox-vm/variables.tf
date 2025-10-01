@@ -169,3 +169,8 @@ variable "ansible_vault_folderpath" {
     type = string
     default = "../../../ansible-playbooks/roles/vault/files/"
 }
+
+variable "inventory_path" {
+    description = "Ansible inventory path of the current project"
+    type = string
+}
