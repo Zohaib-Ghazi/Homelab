@@ -1,5 +1,6 @@
 # Enable PKI secrets engine at path "pki"
 resource "vault_mount" "pki_int" {
+  provider   = vault.pki
   path        = "pki_int"
   type        = "pki"
   description = "Intermediate Authority for ${var.domain_name}"
@@ -11,14 +12,16 @@ resource "vault_mount" "pki_int" {
 # Configure CA & CRL URLs for the PKI secrets engine
 resource "vault_pki_secret_backend_config_urls" "config-urls" {
   #depends_on              = [ vault_mount.pki_int ]
+  provider               = vault.pki
   backend                 = vault_mount.pki_int.path
-  issuing_certificates    = ["${var.vault_address}/v1/${vault_mount.pki_int.path}/ca"]
-  crl_distribution_points = ["${var.vault_address}/v1/${vault_mount.pki_int.path}/crl"]
+  issuing_certificates    = ["${var.pki_vault_address}/v1/${vault_mount.pki_int.path}/ca"]
+  crl_distribution_points = ["${var.pki_vault_address}/v1/${vault_mount.pki_int.path}/crl"]
 }
 
 # Generate Intermediate CA CSR
 resource "vault_pki_secret_backend_intermediate_cert_request" "intermediate-csr-request" {
   #depends_on  = [ vault_mount.pki_int ]
+  provider    = vault.pki
   backend     = vault_mount.pki_int.path
   type        = "internal"
   common_name = "${var.domain_name} Intermediate CA"

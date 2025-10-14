@@ -1,4 +1,5 @@
 resource "vault_policy" "secrets-engine-policy" {
+  provider = vault.pki
   name = "secrets-engine-policy"
 
   policy = <<EOT

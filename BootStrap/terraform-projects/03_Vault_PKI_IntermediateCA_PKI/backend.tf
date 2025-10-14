@@ -10,7 +10,7 @@ terraform {
 
 #Read Vault secret for Azure Service Principal
 data "vault_kv_secret_v2" "azure_creds" {
-  provider = vault.auth
+  #provider = vault
   mount = "terraform"
   name = "secrets/azure_creds"
 }

@@ -11,6 +11,7 @@ data "terraform_remote_state" "IntCA_TF" {
 
 # Have Root CA sign the Intermediate CSR
 resource "vault_pki_secret_backend_root_sign_intermediate" "signed_IntCACert" {
+  provider   = vault.pki
   backend     = vault_mount.pki.path
   common_name = "${var.domain_name} Intermediate CA"
   csr         = data.terraform_remote_state.IntCA_TF.outputs.intermediate_csr
@@ -25,14 +26,16 @@ resource "vault_pki_secret_backend_root_sign_intermediate" "signed_IntCACert" {
 # Save the signed Intermediate CA certificate to a file
 resource "local_file" "signed_intermediate" {
 # depends_on = [ data.terraform_remote_state.IntCA_TF ]
-    content  = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert.certificate
-    filename = "Signed_IntCA_cert.pem"
-    #file permissions = "0400"
+  #provider = vault.pki
+  content  = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert.certificate
+  filename = "Signed_IntCA_cert.pem"
+  #file permissions = "0400"
 }
 
 # Save the signed Intermediate CA certificate to a file
 resource "local_file" "signed_intermediate2" {
 # depends_on = [ data.terraform_remote_state.IntCA_TF ]
+    #provider = vault.pki
     content  = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert.certificate_bundle
     filename = "Signed_IntCA_cert_bundle.pem"
     #file permissions = "0400"

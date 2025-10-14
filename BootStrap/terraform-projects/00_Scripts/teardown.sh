@@ -13,8 +13,34 @@ src_vault_tfbe_infra_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terrafo
 src_vault_tfbe_auth_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/01_Vault_TFBE_Secrets_AuthControl"
 src_azure_remotestorage_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/01_AzureCloud_StorageAccount"
 
-echo "Tearing down Terraform-managed infrastructure..."
+# echo "Tearing down Terraform-managed infrastructure..."
+# cd $src_jenkins_infra_path
+# terraform init
+# terraform destroy -auto-approve
+# echo "Teardown complete."
 
+# echo
+# echo
+
+echo "Tearing down Terraform-managed infrastructure..."
+cd $src_vault_intca_pki_path
+terraform init
+terraform destroy -auto-approve
+echo "Teardown complete."
+
+echo
+echo
+
+echo "Tearing down Terraform-managed infrastructure..."
+cd $src_vault_rootca_pki_path
+terraform init
+terraform destroy -auto-approve
+echo "Teardown complete."
+
+echo
+echo
+
+echo "Tearing down Terraform-managed infrastructure..."
 cd $src_vault_intca_auth_path
 terraform init
 terraform destroy -auto-approve

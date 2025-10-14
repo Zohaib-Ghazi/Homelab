@@ -1,0 +1,90 @@
+---
+- import_tasks: packages.yml
+- import_tasks: iam.yml
+
+- name: Ensure Docker GPG key is present
+  ansible.builtin.shell:
+    cmd: |
+      install -m 0755 -d /etc/apt/keyrings
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+      chmod a+r /etc/apt/keyrings/docker.asc
+    
+      # Add the repository to Apt sources:
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      apt-get update
+  become: yes
+  register: docker_gpg_key
+
+- name: Prepare container for docker management
+  apt:
+    name: 
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin 
+      - docker-compose-plugin
+      - python3
+      - python3-pip
+      - python3-docker
+    state: present
+    update_cache: yes
+  become: yes
+  register: docker_installed
+
+- name: Copy Jenkins Dockerfile to dest
+  ansible.builtin.copy:
+    src: jenkins/Dockerfile
+    dest: "{{ jenkins_dockerfile_path }}"
+    owner: "{{ docker_user }}"
+    group: "{{ docker_group }}"
+    mode: 0770
+  become: yes
+
+- name: Copy Packer Dockerfile to dest
+  ansible.builtin.copy:
+    src: packer/Dockerfile
+    dest: "{{ packer_dockerfile_path }}"
+    owner: "{{ docker_user }}"
+    group: "{{ docker_group }}"
+    mode: 0770
+  become: yes
+
+- name: Build Jenkins image
+  community.docker.docker_image:
+    build: 
+      path: "{{ jenkins_dockerfile_path }}"
+    name: "{{ jenkins_docker_image_name }}"
+    tag: "{{ jenkins_docker_image_tag }}"
+    #pull: yes # Always attempt to pull a newer version of the base image - useful for images like 'ubuntu:latest'
+    source: build
+    state: present # Ensure the image is present - set 'absent' to remove
+  become: yes
+
+- name: Run Jenkins container
+  community.docker.docker_container:
+    name: "{{ jenkins_docker_image_name  }}"
+    image: "{{ jenkins_docker_image_name }}:{{ jenkins_docker_image_tag }}"
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "{{ jenkins_hostport }}:{{ jenkins_containerport }}"
+      - "{{ jenkins_agentport }}:{{ jenkins_agentcontainerport }}"
+    # volumes:
+    #   - "{{ docker_homedir }}/jenkins_home:/var/jenkins_home"
+  register: jenkins_container_running
+  become: yes
+
+- name: Output Jenkins container id
+  ansible.builtin.debug:
+    msg: "Jenkins container ID: {{ jenkins_container_running.container.Id }}"
+  
+
+- name: Retrieve the initial admin password for Jenkins
+  ansible.builtin.shell:
+    cmd: "docker exec -it {{ jenkins_container_running.container.Id }} cat /var/jenkins_home/secrets/initialAdminPassword"
+  register: jenkins_initial_admin_password
+  become: yes
+
+- name: Display the initial admin password for Jenkins
+  ansible.builtin.debug:
+    msg: "Jenkins initial admin password: {{ jenkins_initial_admin_password.stdout }}"

@@ -1,0 +1,47 @@
+---
+- name: Create a Docker user
+  ansible.builtin.user:
+    name: docker
+    comment: "Docker Service User"
+    shell: /bin/bash
+    home: /home/docker
+    createhome: no
+  become: true
+  register: docker_user_created
+  
+- name: Create the docker directory
+  ansible.builtin.file:
+    path: "{{ item }}" 
+    state: directory
+    mode: 0770
+    owner: docker
+    group: docker
+    recurse: yes
+  loop:
+    - /opt/docker/data
+    - /opt/docker/logs
+    - /opt/docker/tls
+    - /opt/docker/configs
+    - /opt/docker/volumes
+    - /opt/docker/dockerfiles/jenkins
+    - /opt/docker/dockerfiles/packer
+  become: true
+  register: docker_data_dir_created
+
+- name: Add s_admin user to docker group
+  ansible.builtin.user:
+    name: s_admin
+    groups: docker
+    append: yes
+  become: true
+  register: s_admin_in_docker_group
+  
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of Docker VM
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.104"
+    line: "10.0.0.104 PROD-Docker.naizoyden.net PROD-Docker"
+    state: present
+  become: true
+  tags: network

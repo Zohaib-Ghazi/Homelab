@@ -16,24 +16,24 @@ terraform {
 
 # Auth Vault Provider (for retrieving Azure credentials)
 provider "vault" {
-  alias = "auth"
-  address = var.auth_vault_address
+  #alias = "auth"
+  address = var.vault_address
   skip_child_token = true
   # Authenticate using AppRole and the retrieved role_id and secret_id
   auth_login {
     path = "auth/approle/login"
 
     parameters = {
-      role_id   = var.auth_vault_role_id
-      secret_id = var.auth_vault_secret_id
+      role_id   = var.vault_role_id
+      secret_id = var.vault_secret_id
     }
   }
 }
 
 #  Vault Provider (for PKI operations)
 provider "vault" {
-  #alias = "pki"
-  address = var.vault_address
+  alias = "pki"
+  address = var.pki_vault_address
   token = var.pki_root_token # Temporary token for testing; replace with AppRole auth below
   skip_child_token = true
   # Authenticate using AppRole and the retrieved role_id and secret_id

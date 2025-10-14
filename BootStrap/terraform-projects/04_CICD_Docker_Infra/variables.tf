@@ -76,10 +76,15 @@ variable "directory" {
     type = string
 }
 
+variable "inventory_path" {
+    description = "Ansible inventory path of the current project"
+    type = string
+}
+
 variable "ip_address" {
     description = "IP Address"
     type = string
-    default = "10.0.0.6"
+    default = "99.99.99.99"
 }
 
 variable "ip_range_start" {
@@ -104,4 +109,33 @@ variable "gateway" {
     description = "Gateway"
     type = string
     default = "10.0.0.1"
+}
+
+variable "vm_name_suffix" {
+    description = "VM Name Suffix"
+    type = string
+    default = "TFBE"
+}
+
+# variable "subscription_id" {}
+# variable "client_id" {}
+# variable "client_secret" {}
+# variable "tenant_id" {}
+
+
+variable "vault_address" {
+  type    = string
+  sensitive = true
+}
+
+variable "vault_role_id" {
+  description = "Vault AppRole Role ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "vault_secret_id" {
+  description = "Vault AppRole Secret ID"
+  type        = string
+  sensitive   = true
 }

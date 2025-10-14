@@ -33,7 +33,7 @@ variable "vault_address" {
   sensitive = true
 }
 
-variable "auth_vault_address" {
+variable "pki_vault_address" {
   type    = string
   sensitive = true
 }
@@ -50,13 +50,13 @@ variable "vault_secret_id" {
   sensitive   = true
 }
 
-variable "auth_vault_role_id" {
+variable "pki_vault_role_id" {
   description = "Auth Vault AppRole Role ID"
   type        = string
   sensitive   = true
 }
 
-variable "auth_vault_secret_id" {
+variable "pki_vault_secret_id" {
   description = "Auth Vault AppRole Secret ID"
   type        = string
   sensitive   = true

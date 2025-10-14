@@ -38,7 +38,7 @@ provider "vault" {
 provider "vault" {
   alias = "pki_int"
   address = var.pki_int_vault_address
-  #token = "redacted" # Temporary token for testing; replace with AppRole auth below
+  token = var.pki_root_token # Temporary token for testing; replace with AppRole auth below
   skip_child_token = true
   # Authenticate using AppRole and the retrieved role_id and secret_id
   # auth_login {

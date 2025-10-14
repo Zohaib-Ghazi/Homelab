@@ -9,13 +9,12 @@ resource "local_file" "root_2025_cert" {
   filename = "Naizoyden-RootCA.crt"
 }
 
-#Comment out
-output "backend_root_object" {
-  value = vault_pki_secret_backend_root_cert.root_2025
-}
+# #Comment out - debugging
+# output "backend_root_object" {
+#   value = vault_pki_secret_backend_root_cert.root_2025
+# }
 
-#Comment out
-output "signed_object" {
-  value = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert
-}
-
+# #Comment out - debugging
+# output "signed_object" {
+#   value = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert
+# }

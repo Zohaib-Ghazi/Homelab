@@ -31,3 +31,4 @@ out/
 *.crt
 *.csr
 script/set_signed.tf
+output/**

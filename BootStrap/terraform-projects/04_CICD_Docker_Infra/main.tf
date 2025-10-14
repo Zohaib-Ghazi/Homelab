@@ -1,21 +1,17 @@
-module "proxmox-vm" {
+module "Vault-TFStateBackend" {
     source = "../modules/proxmox-vm"
-    vm_cores = 2
-    vm_memory = 4096
-    qemu_agent = 1
-    vm_name_suffix = "Jenkins"
-    vm_vmid = "303"
+    vm_name_suffix = "Docker"
+    vm_vmid = "304"
     proxmox_target_host = "perf"
     vm_storage_source = "local-lvm"
-    vm_disk_size = "50G"
     ansible_user = var.ansible_user
-    ip_address = "10.0.0.102"
-    vm_network_bridge = "vmbr0"
-    vm_network_model = "virtio"
+    ip_address = "10.0.0.104"
     public_key_path = var.public_key_path
     ciuser = var.ciuser
     cipassword = var.cipassword
     private_key_path = var.private_key_path
     sshkeys = var.sshkeys
     directory = var.directory
+    inventory_path = var.inventory_path
+    vm_memory = "4096"
 }

@@ -1,0 +1,7 @@
+---
+- name: Install Tools and dependencies
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  register: linux_tools_installed

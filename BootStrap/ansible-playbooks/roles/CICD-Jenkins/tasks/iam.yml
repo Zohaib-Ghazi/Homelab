@@ -28,13 +28,12 @@
   become: true
   register: jenkins_data_dir_created
   
-#- name: Create the vault tls directory
-#  ansible.builtin.file:
-#    path: /opt/vault/tls
-#    state: directory
-#    mode: 0770
-#    owner: vault
-#    group: vault
-#    recurse: yes
-#  become: true
-#  register: vault_tls_dir_created
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of RootCA VM
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.104"
+    line: "10.0.0.104 PROD-Jenkins.naizoyden.net PROD-Jenkins"
+    state: present
+  become: true
+  tags: network

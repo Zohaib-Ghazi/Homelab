@@ -61,3 +61,9 @@ variable "pki_vault_secret_id" {
   type        = string
   sensitive   = true
 }
+
+variable "pki_root_token" {
+    description = "PKI Root Token"
+    type        = string
+    sensitive   = true
+}

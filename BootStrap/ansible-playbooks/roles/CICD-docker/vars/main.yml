@@ -1,0 +1,24 @@
+---
+packages: 
+  - curl #Required for downloading files from the internet
+  - ca-certificates #Ensures that SSL certificates are up to date for secure connections
+  - jq
+  - nano
+  - openssl
+  - net-tools
+  - openjdk-21-jdk
+  - nfs-common
+docker_homedir: "/opt/docker/"
+docker_user: "docker"
+docker_group: "docker"
+packer_dockerfile_path: "/opt/docker/dockerfiles/packer/"
+
+#Jenkins Variables
+jenkins_dockerfile_path: "/opt/docker/dockerfiles/jenkins/"
+jenkins_docker_image_name: "custom-jenkins-blueocean"
+jenkins_docker_image_fullname: "custom-jenkins-blueocean:2.516.3-jdk21"
+jenkins_docker_image_tag: "2.516.3-jdk21"
+jenkins_hostport: 8080
+jenkins_containerport: 8080
+jenkins_agentport: 50000
+jenkins_agentcontainerport: 50000
