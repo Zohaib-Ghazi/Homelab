@@ -114,6 +114,7 @@ variable "gateway" {
 variable "vm_name_suffix" {
     description = "VM Name Suffix"
     type = string
+<<<<<<<< HEAD:BootStrap/terraform-projects/01_TrueNAS/variables.tf
     default = "TrueNAS"
 }
 
@@ -133,3 +134,30 @@ variable "subscription_id" {}
 variable "client_id" {}
 variable "client_secret" {}
 variable "tenant_id" {}
+========
+    default = "TFBE"
+}
+
+# variable "subscription_id" {}
+# variable "client_id" {}
+# variable "client_secret" {}
+# variable "tenant_id" {}
+
+
+variable "vault_address" {
+  type    = string
+  sensitive = true
+}
+
+variable "vault_role_id" {
+  description = "Vault AppRole Role ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "vault_secret_id" {
+  description = "Vault AppRole Secret ID"
+  type        = string
+  sensitive   = true
+}
+>>>>>>>> 5ca188b (Introduced Docker & Jenkins into baseline setup):BootStrap/terraform-projects/04_CICD_Docker_Infra/variables.tf
