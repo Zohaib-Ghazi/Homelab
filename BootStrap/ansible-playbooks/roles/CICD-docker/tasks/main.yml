@@ -69,8 +69,8 @@
     ports:
       - "{{ jenkins_hostport }}:{{ jenkins_containerport }}"
       - "{{ jenkins_agentport }}:{{ jenkins_agentcontainerport }}"
-    # volumes:
-    #   - "{{ docker_homedir }}/jenkins_home:/var/jenkins_home"
+    volumes:
+      - "{{ docker_homedir }}volumes/jenkins/:/var/lib/jenkins/"
   register: jenkins_container_running
   become: yes
 

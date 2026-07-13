@@ -15,6 +15,11 @@ resource "local_file" "root_2025_cert" {
 # }
 
 # #Comment out - debugging
+# output "issuer_id" {
+#   value = vault_pki_secret_backend_root_cert.root_2025.issuer_id
+# }
+
+# #Comment out - debugging
 # output "signed_object" {
 #   value = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert
 # }

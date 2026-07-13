@@ -2,7 +2,6 @@ locals {
     #List of IP addresses in given range
     ipv4 = var.ip_address
     target_host = var.proxmox_target_host == "perf" ? var.proxmox_perf_host : var.proxmox_nas_host
-    ansible_inventory = "[${var.vm_name_suffix}]"
 }
 
 #Proxmox VM Resource Configuration
@@ -24,6 +23,7 @@ resource "proxmox_vm_qemu" "TF_VM" {
     full_clone = true
     os_type = "cloud-init" #Which provisioning method to use, based on the OS type. Options: ubuntu, centos, cloud-init.
     qemu_os = "l26" #Learn the purpose behind this flag #TODO: Set configurations as variables
+    bios = var.vm_bios #BIOS type, either "ovmf" for UEFI or "seabios" for legacy BIOS. This should match the template image's BIOS type.
 
     #VM QEMU Guest Agent State
     agent = var.qemu_agent
@@ -38,7 +38,7 @@ resource "proxmox_vm_qemu" "TF_VM" {
     #TODO: Implement a more dynamic storage configuration
     onboot = false 
     #bootdisk = "scsi0" #The boot disk scsi #TODO: Set configurations as variables
-    boot = "order=scsi0;ide2;net0" #Has to match the OS disk configuration of the template image #TODO: Set configurations as variables
+    boot = var.vm_boot_order #Has to match the OS disk configuration of the template image #TODO: Set configurations as variables
     scsihw = "virtio-scsi-single" #Scsi hardware type #TODO: Set configurations as variables
     vm_state = "running"
 
@@ -136,29 +136,28 @@ resource "proxmox_vm_qemu" "TF_VM" {
   }
 }
 
-#Ansible "Dynamic" Inventory File 
-#TODO: Implement a more dynamic inventory file that can search and add based on input parameters
-#resource "local_file" "ansible_inventory" {
-#    filename = "${var.directory}/Inventory/inventory.ini"
-#    content = <<EOF
-#${local.ansible_inventory}
-#${local.ipv4}
-#EOF
-#}
+resource "null_resource" "wait_for_ssh" {
+    count      = var.skip_ansible_provisioning == false ? 1 : 0
+    depends_on = [proxmox_vm_qemu.TF_VM]
+    
+    provisioner "remote-exec" {
+        inline = ["echo 'Ansible will now be able to reach this VM, and boy is it an insane VM to reach!'"]
 
-resource "null_resource" "Module-Ansible-Execution" {
-  provisioner "remote-exec" {
-    inline = ["echo 'Ansible will now be able to reach this VM, and boy is it an insane VM to reach!'"]
-
-    connection {
-      type = "ssh"
-      user = var.ansible_user
-      private_key = file("${var.private_key_path}")
-      host = "${var.ip_address}"
+        connection {
+            type        = "ssh"
+            user        = var.ansible_user
+            private_key = file("${var.private_key_path}")
+            host        = "${var.ip_address}"
+        }
     }
-  }
+}
 
-  provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.inventory_path}/Inventory.ini -u ${var.ansible_user} --private-key ${var.private_key_path} -e 'pub_key=${var.public_key_path}' ${var.directory}/ansible-playbooks/site.yml"
-  }
+resource "null_resource" "ansible_provision_local_exec" {
+    count      = var.skip_ansible_provisioning == false ? 1 : 0
+    depends_on = [null_resource.wait_for_ssh]
+
+    provisioner "local-exec" {
+        command    = "ANSIBLE_HOST_KEY_CHECKING=False ANSIBLE_CONFIG=${var.directory}/ansible-playbooks/ansible.cfg ansible-playbook -i ${var.inventory_path}/Inventory.ini -u ${var.ansible_user} --private-key ${var.private_key_path} -e pub_key=${var.public_key_path} ${var.directory}/ansible-playbooks/site.yml"
+        on_failure = fail
+    }
 }

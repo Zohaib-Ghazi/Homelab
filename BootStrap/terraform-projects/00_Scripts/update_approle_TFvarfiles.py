@@ -10,7 +10,7 @@ tfvars_paths = [
     "../03_Vault_PKI_IntermediateCA_AuthControl/credentials.auto.tfvars",
     "../03_Vault_PKI_IntermediateCA_Infra/credentials.auto.tfvars",
     "../03_Vault_PKI_IntermediateCA_PKI/credentials.auto.tfvars",
-    "../04_CICD_Jenkins_Infra/credentials.auto.tfvars",
+    "../04_CICD_Docker_Infra/credentials.auto.tfvars",
 ]
 
 # Read new role_id from file

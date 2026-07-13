@@ -91,7 +91,7 @@
       openssl req -x509 -newkey rsa:4096 -sha256 -days 365 \
       -nodes -keyout /opt/vault/tls/vault-key.pem -out /usr/local/share/ca-certificates/vault-cert.crt \
       -subj "/O=Homelab/CN=naizoyden.net" \
-      -addext "subjectAltName = DNS:TFBE.naizoyden.net,IP:10.0.0.101"
+      -addext "subjectAltName = DNS:PROD-TFBE.naizoyden.net,IP:10.0.0.101"
   become: yes
   register: tls_cert_generated
 

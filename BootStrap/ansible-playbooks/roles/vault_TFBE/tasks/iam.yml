@@ -79,7 +79,7 @@
   lineinfile:
     path: /etc/cloud/templates/hosts.debian.tmpl
     regexp: "^10.0.0.101"
-    line: "10.0.0.101 TFBE.naizoyden.net TFBE"
+    line: "10.0.0.101 PROD-TFBE.naizoyden.net PROD-TFBE"
     state: present
   become: true
   tags: network

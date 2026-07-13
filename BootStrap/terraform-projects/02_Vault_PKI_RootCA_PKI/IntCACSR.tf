@@ -14,11 +14,13 @@ resource "vault_pki_secret_backend_root_sign_intermediate" "signed_IntCACert" {
   provider   = vault.pki
   backend     = vault_mount.pki.path
   common_name = "${var.domain_name} Intermediate CA"
+  #common_name = data.terraform_remote_state.IntCA_TF.outputs.intermediate_csr.common_name
   csr         = data.terraform_remote_state.IntCA_TF.outputs.intermediate_csr
-  #issuer_ref  = vault_pki_secret_backend_root_cert.root_2025.issuer_id #try setting to intca issuer id next
+  issuer_ref  = "default" # No issuer_ref exists when signing an intermediate CSR with the root CA, so we set it to "default". This appears to have fixed the issue with ACME client requests that was occurring when we set issuer_ref to the issuer_id of the root CA certificate.
   format      = "pem_bundle"
-  ou          = "Production"
-  organization = "Homelab"
+  #ou          = "Production"
+  country     = "Canada"
+  locality    = "Toronto"
   ttl         = 15480000 # 180 days
 }
 
@@ -28,7 +30,7 @@ resource "local_file" "signed_intermediate" {
 # depends_on = [ data.terraform_remote_state.IntCA_TF ]
   #provider = vault.pki
   content  = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert.certificate
-  filename = "Signed_IntCA_cert.pem"
+  filename = "Signed_IntCA.cert.pem"
   #file permissions = "0400"
 }
 
@@ -42,7 +44,14 @@ resource "local_file" "signed_intermediate2" {
 }
 
 # Output the signed Intermediate CA certificate
-output "signed_CSR" {
+output "signed_CSR_cert" {
     #depends_on = [ data.terraform_remote_state.IntCA_TF ]
     value = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert.certificate
 }
+
+# Output the signed Intermediate CA certificate
+output "signed_CSR_cert_bundle" {
+    #depends_on = [ data.terraform_remote_state.IntCA_TF ]
+    value = vault_pki_secret_backend_root_sign_intermediate.signed_IntCACert.certificate
+}
+

@@ -22,6 +22,21 @@ src_azure_remotestorage_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terr
 # echo
 # echo
 
+# # Delete IntCACSR.tf file from RootCA PKI directory
+# rm "${src_vault_rootca_pki_path}/IntCACSR.tf"
+# echo "Deleted IntCACSR.tf file from RootCA PKI directory"
+# echo
+
+# # Delete postscript.tf file from IntCA PKI directory
+# rm "${src_vault_intca_pki_path}/postscript_IntCA1.tf"
+# echo "Deleted postscript_IntCA1.tf file from IntCA PKI directory"
+# echo
+
+# # Delete postscript.tf file from IntCA PKI directory
+# rm "${src_vault_intca_pki_path}/postscript_IntCA2.tf"
+# echo "Deleted postscript_IntCA2.tf file from IntCA PKI directory"
+# echo
+
 echo "Tearing down Terraform-managed infrastructure..."
 cd $src_vault_intca_pki_path
 terraform init
@@ -105,12 +120,12 @@ echo "Teardown complete."
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+# echo "Tearing down Terraform-managed infrastructure..."
 
-cd $src_azure_remotestorage_path
-terraform destroy -auto-approve
+# cd $src_azure_remotestorage_path
+# terraform destroy -auto-approve
 
-echo "Teardown complete."
+# echo "Teardown complete."
 
 echo
 echo

@@ -26,11 +26,10 @@ output_path_vault="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-proje
 
 # echo "Starting Terraform deployment for Vault TFBE Infrastructure"
 # # Navigate to TFBE infra directory, initialize Terraform, and apply the configuration
-# cd $src_vault_tfbe_infra_path
+# cd $src_vault_tfbe_infra_path 
 # terraform init
 # terraform apply -auto-approve
 # echo "Completed Terraform deployment for Vault TFBE Infrastructure"
-
 # echo
 # echo
 
@@ -132,75 +131,63 @@ output_path_vault="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-proje
 # echo
 
 
-
+ 
 # echo "Starting Terraform deployment for RootCA Auth Control"
 # cd $src_vault_rootca_auth_path
 # terraform init
 # terraform apply -auto-approve
 # echo "Completed Terraform deployment for RootCA Auth Control"
 
-# echo
-# echo
+echo
+echo
 
-# echo "Starting Terraform deployment for Vault PKI IntCA Infrastructure"
-# # Navigate to IntCA infra directory, initialize Terraform, and apply the configuration
-# cd $src_vault_intca_infra_path
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed Terraform deployment for Vault PKI IntCA Infrastructure"
+echo "Starting Terraform deployment for Vault PKI IntCA Infrastructure"
+# Navigate to IntCA infra directory, initialize Terraform, and apply the configuration
+cd $src_vault_intca_infra_path
+terraform init
+terraform apply -auto-approve
+echo "Completed Terraform deployment for Vault PKI IntCA Infrastructure"
 
-# echo
-# echo
+echo
+echo
 
-# #Call the script to retrieve vault keys
-# echo "Retrieving remote vault keys"
-# #cd $src_scripts_dir
-# #./Retrieve-vaultkeys.sh "/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_tfbe.json" "10.0.0.101" "s_admin"
-# echo "Step 1: Removing old entries from known_hosts file for '10.0.0.103'"
-# sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "10.0.0.103"
-# echo "Step 2: Retrieving vault keys from host"
-# sudo scp -i ~/.ssh/ansible "s_admin@10.0.0.103:/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_intca.json"
-# echo
-# echo "IntCA vault keys copied to local host"
+#Call the script to retrieve vault keys
+echo "Retrieving remote vault keys"
+#cd $src_scripts_dir
+#./Retrieve-vaultkeys.sh "/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_tfbe.json" "10.0.0.101" "s_admin"
+echo "Step 1: Removing old entries from known_hosts file for '10.0.0.103'"
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "10.0.0.103"
+echo "Step 2: Retrieving vault keys from host"
+sudo scp -i ~/.ssh/ansible "s_admin@10.0.0.103:/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_intca.json"
+echo
+echo "IntCA vault keys copied to local host"
 
 
-# # Update vault root token in credentials.auto.tfvars file
-# echo "Updating IntCA vault root token in credentials.auto.tfvars file"
-# cd $src_scripts_dir
-# python3 IntCA_update_vault_token.py
-# echo "Completed updating IntCA vault root token in credentials.auto.tfvars file"
-# echo
+# Update vault root token in credentials.auto.tfvars file
+echo "Updating IntCA vault root token in credentials.auto.tfvars file"
+cd $src_scripts_dir
+python3 IntCA_update_vault_token.py
+echo "Completed updating IntCA vault root token in credentials.auto.tfvars file"
+echo
 
-# # Call the script to retrieve self-signed CA certs
-# echo "Retrieving remote root certificate"
-# cd $src_scripts_dir
-# ./Retrieve-Cert.sh "/usr/local/share/ca-certificates/vault-cert.crt" "/usr/local/share/ca-certificates/IntCA.crt" "10.0.0.103" "s_admin"
-# echo
-# echo "Int CA cert retrieved and successfully applied to local host"
+# Call the script to retrieve self-signed CA certs
+echo "Retrieving remote root certificate"
+cd $src_scripts_dir
+./Retrieve-Cert.sh "/usr/local/share/ca-certificates/vault-cert.crt" "/usr/local/share/ca-certificates/IntCA.crt" "10.0.0.103" "s_admin"
+echo
+echo "Int CA cert retrieved and successfully applied to local host"
 
-# echo
-# echo
+echo
+echo
 
-# echo "Starting Terraform deployment for IntCA Auth Control"
-# cd $src_vault_intca_auth_path
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed Terraform deployment for IntCA Auth Control"
+echo "Starting Terraform deployment for IntCA Auth Control"
+cd $src_vault_intca_auth_path
+terraform init
+terraform apply -auto-approve
+echo "Completed Terraform deployment for IntCA Auth Control"
 
-# echo
-# echo
-
-# echo
-# echo
-
-# echo "Starting Terraform deployment for Docker Infrastructure & Application"
-# cd $src_jenkins_infra_pathasdfasd
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed deployment for Docker Infrastructure & Application"
-
-# echo
-# echo
+echo
+echo
 
 echo "Starting Terraform deployment for Vault PKI RootCA"
 #Navigate to RootCA PKI directory, initialize Terraform, and apply the configuration
@@ -216,6 +203,56 @@ terraform init
 terraform apply -auto-approve
 echo "Completed Terraform deployment for Vault PKI IntCA"
 
-#Uncomment IntCACSR.tf file in IntCA PKI directory after IntCA PKI deployment is complete
-#Uncomment postscript in IntCA PKI directory to sign the IntCA CSR with RootCA
-#This will complete the PKI setup with a RootCA and an IntermediateCA. Power down RootCA server after this step to simulate best practices.
+
+# Copy IntCACSR.tf file from scripts directory to RootCA PKI directory
+cp "${src_scripts_dir}/IntCACSR.tf" "${src_vault_rootca_pki_path}/IntCACSR.tf"
+echo "Copied IntCACSR.tf file to RootCA PKI directory"
+echo
+
+# Run terraform apply again in RootCA PKI directory to sign IntCA CSR
+cd $src_vault_rootca_pki_path
+terraform apply -auto-approve
+echo "Signed IntCA CSR in RootCA PKI directory"
+echo
+
+# Copy postscript.tf file from scripts directory to IntCA PKI directory
+cp "${src_scripts_dir}/postscript_IntCA1.tf" "${src_vault_intca_pki_path}/postscript_IntCA1.tf"
+echo "Copied postscript_IntCA1.tf file to IntCA PKI directory"
+echo
+
+# Run terraform apply again in IntCA PKI directory to import the signed IntCA certificate
+cd $src_vault_intca_pki_path
+terraform apply -auto-approve
+echo "Imported signed IntCA certificate"
+echo
+
+# Copy postscript_IntCA.tf file from scripts directory to IntCA PKI directory
+cp "${src_scripts_dir}/postscript_IntCA2.tf" "${src_vault_intca_pki_path}/postscript_IntCA2.tf"
+echo "Copied postscript_IntCA2.tf file to IntCA PKI directory"
+echo
+
+# Run terraform apply again in IntCA PKI directory to sign IntCA CSR and complete IntCA setup
+cd $src_vault_intca_pki_path
+terraform apply -auto-approve
+echo "Configuring CA &* CRL distribution points, OCSP responder, and other post-configuration steps, including ACME DNS challenge setup for domain validation"
+echo
+echo
+echo
+
+echo "All Terraform deployments and configurations completed"
+
+# echo "Starting Terraform deployment for Docker Infrastructure & Application"
+# cd $src_jenkins_infra_pathasdfasd
+# terraform init
+# terraform apply -auto-approve
+# echo "Completed deployment for Docker Infrastructure & Application"
+
+# echo
+# echo
+
+# --- IGNORE ---
+
+
+
+
+

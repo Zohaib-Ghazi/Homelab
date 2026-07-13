@@ -12,6 +12,6 @@ module "Vault-TFStateBackend" {
     private_key_path = var.private_key_path
     sshkeys = var.sshkeys
     directory = var.directory
-    ansible_vault_folderpath = "../../../ansible-playbooks/roles/vault_RootCA/files/"
+    ansible_vault_folderpath = "../../../ansible-playbooks/roles/vault_TFBE/files/"
     inventory_path = var.inventory_path
 }

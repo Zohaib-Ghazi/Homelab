@@ -19,7 +19,7 @@ variable "issuer_name" {
 variable "client_cert_domain" {
     description = "Domain name for the client certificate"
     type        = string
-    default     = "naizoyden.com"
+    default     = "naizoyden.net"
 }
 
 variable "pki_root_token" {
@@ -34,6 +34,11 @@ variable "vault_address" {
 }
 
 variable "pki_vault_address" {
+  type    = string
+  sensitive = true
+}
+
+variable "pki_vault_address_insecure" {
   type    = string
   sensitive = true
 }

@@ -1,0 +1,12 @@
+---
+packages: 
+  - curl
+  - jq
+  - nano
+  - openssl
+  - net-tools
+  - iputils-ping
+  - dnsutils
+nas_group: "nas"
+nas_user: "nas"
+service_account_admin: "s_admin"

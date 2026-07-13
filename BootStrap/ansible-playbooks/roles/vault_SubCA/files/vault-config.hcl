@@ -7,13 +7,13 @@ default_lease_ttl       = "1h" # Default lease TTL for all secrets
 disable_mlock           = true # System call preventing memory from being swapped to disk. Set to false in production environments with sufficient memory.
 disable_cache          = true 
 ui                      = true # Disable the UI in production environments
-log_level              = "debug" # Set to "info" or "warn" in production environments
+log_level              = "info" # Set to "info" or "warn" in production environments
 log_file             = "/opt/vault/logs/vault.log" # Ensure this directory exists and is writable by the vault user
 
 listener "tcp" {
 address       = "0.0.0.0:8200"
 #tls_disable   = "true" # Set to "true" for testing purposes only
-tls_cert_file = "/usr/local/share/ca-certificates/vault-cert.crt"
+tls_cert_file = "/usr/local/share/ca-certificates/vault-cert.crt" #TODO: modify this to use *.pem
 tls_key_file  = "/opt/vault/tls/vault-key.pem"
 tls_disable_client_certs = true # Set to "true" for trusted environments only, until mTLS can be implemented
 }

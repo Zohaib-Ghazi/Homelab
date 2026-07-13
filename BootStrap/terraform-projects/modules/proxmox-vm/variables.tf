@@ -174,3 +174,21 @@ variable "inventory_path" {
     description = "Ansible inventory path of the current project"
     type = string
 }
+
+variable "vm_bios" {
+    description = "BIOS type, either 'ovmf' for UEFI or 'seabios' for legacy BIOS. This should match the template image's BIOS type."
+    type = string
+    default = "seabios"
+}
+
+variable "vm_boot_order" {
+    description = "Boot order for the VM. For example, 'cdn' means to boot from CD-ROM first, then disk, then network."
+    type = string
+    default = "order=scsi0;ide2;net0"
+}
+
+variable "skip_ansible_provisioning" {
+    description = "Whether to skip Ansible provisioning after VM creation. Set to true to skip provisioning, false to run provisioning."
+    type = bool
+    default = false
+}

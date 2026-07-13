@@ -1,0 +1,55 @@
+---
+- name: Create nas user group
+  ansible.builtin.group:
+    name: "{{ nas_group }}"
+    state: present
+  become: true
+
+- name: Create a nas user
+  ansible.builtin.user:
+    name: "{{ nas_user }}"
+    group: "{{ nas_group }}"
+    system: yes
+    shell: "/sbin/nologin"
+    comment: "nas nologin User"
+    createhome: no
+    state: present
+  become: true
+  
+- name: Add service_account_admin to nas group
+  ansible.builtin.user:
+    name: "{{ service_account_admin }}"
+    groups: "{{ nas_group }}"
+    state: present
+    append: yes
+  become: true
+
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of TrueNAS VM
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.233"
+    line: "10.0.0.233 PROD-TrueNAS.naizoyden.net PROD-TrueNAS"
+    state: present
+  become: true
+  tags: network
+
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of pve
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.100"
+    line: "10.0.0.100 pve.naizoyden.net pve"
+    state: present
+  become: true
+  tags: network
+
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of pve2
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.200"
+    line: "10.0.0.200 pve2.naizoyden.net pve2"
+    state: present
+  become: true
+  tags: network
