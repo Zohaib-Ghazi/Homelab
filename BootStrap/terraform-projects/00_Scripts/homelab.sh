@@ -15,128 +15,128 @@ src_azure_remotestorage_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terr
 src_jenkins_infra_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/04_CICD_Jenkins_Infra"
 output_path_vault="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/"
 
-# echo "Starting Terraform deployment for Azure Remote Storage Infrastructure"
-# cd $src_azure_remotestorage_path
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed deployment for Azure Remote Storage Infrastructure"
+echo "Starting Terraform deployment for Azure Remote Storage Infrastructure"
+cd $src_azure_remotestorage_path
+terraform init
+terraform apply -auto-approve
+echo "Completed deployment for Azure Remote Storage Infrastructure"
 
-# echo
-# echo
+echo
+echo
 
-# echo "Starting Terraform deployment for Vault TFBE Infrastructure"
-# # Navigate to TFBE infra directory, initialize Terraform, and apply the configuration
-# cd $src_vault_tfbe_infra_path 
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed Terraform deployment for Vault TFBE Infrastructure"
-# echo
-# echo
+echo "Starting Terraform deployment for Vault TFBE Infrastructure"
+# Navigate to TFBE infra directory, initialize Terraform, and apply the configuration
+cd $src_vault_tfbe_infra_path 
+terraform init
+terraform apply -auto-approve
+echo "Completed Terraform deployment for Vault TFBE Infrastructure"
+echo
+echo
 
-# #Call the script to retrieve vault keys
-# echo "Retrieving remote vault keys"
-# #cd $src_scripts_dir
-# #./Retrieve-vaultkeys.sh "/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_tfbe.json" "10.0.0.101" "s_admin"
-# echo "Step 1: Removing old entries from known_hosts file for '10.0.0.101"
-# sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "10.0.0.101"
-# echo "Step 2: Retrieving vault keys from host"
-# sudo scp -i ~/.ssh/ansible "s_admin@10.0.0.101:/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_tfbe.json"
-# echo
-# echo "TFBE vault keys copied to local host"
+#Call the script to retrieve vault keys
+echo "Retrieving remote vault keys"
+#cd $src_scripts_dir
+#./Retrieve-vaultkeys.sh "/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_tfbe.json" "10.0.0.101" "s_admin"
+echo "Step 1: Removing old entries from known_hosts file for '10.0.0.101"
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "10.0.0.101"
+echo "Step 2: Retrieving vault keys from host"
+sudo scp -i ~/.ssh/ansible "s_admin@10.0.0.101:/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_tfbe.json"
+echo
+echo "TFBE vault keys copied to local host"
 
-# echo
-# echo
+echo
+echo
 
-# # Update vault root token in credentials.auto.tfvars file
-# echo "Updating TFBE vault root token in credentials.auto.tfvars file"
-# cd $src_scripts_dir
-# python3 TFBE_update_vault_token.py
-# echo "Completed updating TFBE vault root token in credentials.auto.tfvars file"
-# echo
+# Update vault root token in credentials.auto.tfvars file
+echo "Updating TFBE vault root token in credentials.auto.tfvars file"
+cd $src_scripts_dir
+python3 TFBE_update_vault_token.py
+echo "Completed updating TFBE vault root token in credentials.auto.tfvars file"
+echo
 
-# # Call the script to retrieve self-signed CA certs
-# echo "Retrieving remote root certificate"
-# cd $src_scripts_dir
-# ./Retrieve-Cert.sh "/usr/local/share/ca-certificates/vault-cert.crt" "/usr/local/share/ca-certificates/TFBE.crt" "10.0.0.101" "s_admin"
-# echo
-# echo "TFBE cert retrieved and successfully applied to local host"
+# Call the script to retrieve self-signed CA certs
+echo "Retrieving remote root certificate"
+cd $src_scripts_dir
+./Retrieve-Cert.sh "/usr/local/share/ca-certificates/vault-cert.crt" "/usr/local/share/ca-certificates/TFBE.crt" "10.0.0.101" "s_admin"
+echo
+echo "TFBE cert retrieved and successfully applied to local host"
 
-# echo
-# echo
+echo
+echo
 
-# echo "Starting Terraform deployment for Vault TFBE Auth Control"
-# # Navigate to TFBE Auth Control directory, initialize Terraform, and apply the configuration
-# cd $src_vault_tfbe_auth_path
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed Terraform deployment for Vault TFBE Auth Control"
+echo "Starting Terraform deployment for Vault TFBE Auth Control"
+# Navigate to TFBE Auth Control directory, initialize Terraform, and apply the configuration
+cd $src_vault_tfbe_auth_path
+terraform init
+terraform apply -auto-approve
+echo "Completed Terraform deployment for Vault TFBE Auth Control"
 
-# echo
-# echo
+echo
+echo
 
-# # retrieve vault output values for TF_SPN_role_id and TF_SPN_secret_id and save to local files
-# echo "Retrieving TF_SPN Role ID & Secret ID from Vault TFBE Auth Control"
-# cd $src_vault_tfbe_auth_path
-# terraform output TF_SPN_role_id > "${output_path_vault}TF_SPN_role_id.txt"
-# terraform output TF_SPN_secret_id > "${output_path_vault}TF_SPN_secret_id.txt"
-# echo
-# echo "TFBE SPN creds copied to local host"
+# retrieve vault output values for TF_SPN_role_id and TF_SPN_secret_id and save to local files
+echo "Retrieving TF_SPN Role ID & Secret ID from Vault TFBE Auth Control"
+cd $src_vault_tfbe_auth_path
+terraform output TF_SPN_role_id > "${output_path_vault}TF_SPN_role_id.txt"
+terraform output TF_SPN_secret_id > "${output_path_vault}TF_SPN_secret_id.txt"
+echo
+echo "TFBE SPN creds copied to local host"
 
-# echo
-# echo
+echo
+echo
 
-# echo "Updating TF_SPN Role ID & Secret ID across terraform tfvars files:RootCA, IntCA & Jenkins"
-# cd $src_scripts_dir
-# python3 update_approle_TFvarfiles.py
-# echo "Completed updating TF_SPN Role ID & Secret ID creds in terraform tfvars files"
-
-
-# echo "Starting Terraform deployment for Vault PKI RootCA Infrastructure"
-# # Navigate to RootCA infra directory, initialize Terraform, and apply the configuration
-# cd $src_vault_rootca_infra_path
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed Terraform deployment for Vault PKI RootCA Infrastructure"
-
-# echo
-# echo
-
-# #Call the script to retrieve vault keys
-# echo "Retrieving remote vault keys"
-# #cd $src_scripts_dir
-# #./Retrieve-vaultkeys.sh "/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_rootca.json" "10.0.0.102" "s_admin"
-# echo "Step 1: Removing old entries from known_hosts file for '10.0.0.102'"
-# sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "10.0.0.102"
-# echo "Step 2: Retrieving vault keys from host"
-# sudo scp -i ~/.ssh/ansible "s_admin@10.0.0.102:/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_rootca.json"
-# echo
-# echo "RootCA vault keys copied to local host"
+echo "Updating TF_SPN Role ID & Secret ID across terraform tfvars files:RootCA, IntCA & Jenkins"
+cd $src_scripts_dir
+python3 update_approle_TFvarfiles.py
+echo "Completed updating TF_SPN Role ID & Secret ID creds in terraform tfvars files"
 
 
-# # Update vault root token in credentials.auto.tfvars file
-# echo "Updating RootCA vault root token in credentials.auto.tfvars file"
-# cd $src_scripts_dir
-# python3 RootCA_update_vault_token.py
-# echo "Completed updating RootCA vault root token in credentials.auto.tfvars file"
-# echo
+echo "Starting Terraform deployment for Vault PKI RootCA Infrastructure"
+# Navigate to RootCA infra directory, initialize Terraform, and apply the configuration
+cd $src_vault_rootca_infra_path
+terraform init
+terraform apply -auto-approve
+echo "Completed Terraform deployment for Vault PKI RootCA Infrastructure"
 
-# # Call the script to retrieve self-signed CA certs
-# echo "Retrieving remote root certificate"
-# cd $src_scripts_dir
-# ./Retrieve-Cert.sh "/usr/local/share/ca-certificates/vault-cert.crt" "/usr/local/share/ca-certificates/RootCA.crt" "10.0.0.102" "s_admin"
-# echo
-# echo "Root CA cert retrieved and successfully applied to local host"
+echo
+echo
 
-# echo
-# echo
+#Call the script to retrieve vault keys
+echo "Retrieving remote vault keys"
+#cd $src_scripts_dir
+#./Retrieve-vaultkeys.sh "/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_rootca.json" "10.0.0.102" "s_admin"
+echo "Step 1: Removing old entries from known_hosts file for '10.0.0.102'"
+sudo ssh-keygen -f "/root/.ssh/known_hosts" -R "10.0.0.102"
+echo "Step 2: Retrieving vault keys from host"
+sudo scp -i ~/.ssh/ansible "s_admin@10.0.0.102:/opt/vault/unseal/vault_init.json" "/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/vault_rootca.json"
+echo
+echo "RootCA vault keys copied to local host"
+
+
+# Update vault root token in credentials.auto.tfvars file
+echo "Updating RootCA vault root token in credentials.auto.tfvars file"
+cd $src_scripts_dir
+python3 RootCA_update_vault_token.py
+echo "Completed updating RootCA vault root token in credentials.auto.tfvars file"
+echo
+
+# Call the script to retrieve self-signed CA certs
+echo "Retrieving remote root certificate"
+cd $src_scripts_dir
+./Retrieve-Cert.sh "/usr/local/share/ca-certificates/vault-cert.crt" "/usr/local/share/ca-certificates/RootCA.crt" "10.0.0.102" "s_admin"
+echo
+echo "Root CA cert retrieved and successfully applied to local host"
+
+echo
+echo
 
 
  
-# echo "Starting Terraform deployment for RootCA Auth Control"
-# cd $src_vault_rootca_auth_path
-# terraform init
-# terraform apply -auto-approve
-# echo "Completed Terraform deployment for RootCA Auth Control"
+echo "Starting Terraform deployment for RootCA Auth Control"
+cd $src_vault_rootca_auth_path
+terraform init
+terraform apply -auto-approve
+echo "Completed Terraform deployment for RootCA Auth Control"
 
 echo
 echo
@@ -239,7 +239,7 @@ echo
 echo
 echo
 
-echo "All Terraform deployments and configurations completed"
+echo "All Terraform deployments and configurations have been completed"
 
 # echo "Starting Terraform deployment for Docker Infrastructure & Application"
 # cd $src_jenkins_infra_pathasdfasd

@@ -192,3 +192,42 @@ variable "skip_ansible_provisioning" {
     type = bool
     default = false
 }
+
+# Certificate provisioning variables
+variable "skip_certificate_provisioning" {
+    description = "Whether to skip Vault certificate provisioning. Set to true to skip, false to request certificate."
+    type = bool
+    default = true
+}
+
+variable "vault_address" {
+    description = "Vault server address for certificate provisioning (e.g., https://vault.homelab:8200)"
+    type = string
+    default = null
+}
+
+variable "vault_cert_role" {
+    description = "Vault PKI role to use for certificate issuance (e.g., proxmox-host, infra-server)"
+    type = string
+    default = null
+}
+
+variable "vault_cert_san" {
+    description = "Subject Alternative Names for the certificate (comma-separated)"
+    type = string
+    default = ""
+}
+
+variable "appRole_RoleID" {
+    description = "Vault AppRole Role ID for certificate provisioning"
+    type = string
+    sensitive = true
+    default = null
+}
+
+variable "appRole_SecretID" {
+    description = "Vault AppRole Secret ID for certificate provisioning"
+    type = string
+    sensitive = true
+    default = null
+}

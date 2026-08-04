@@ -22,110 +22,109 @@ src_azure_remotestorage_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terr
 # echo
 # echo
 
-# # Delete IntCACSR.tf file from RootCA PKI directory
-# rm "${src_vault_rootca_pki_path}/IntCACSR.tf"
-# echo "Deleted IntCACSR.tf file from RootCA PKI directory"
-# echo
+# Delete IntCACSR.tf file from RootCA PKI directory
+rm "${src_vault_rootca_pki_path}/IntCACSR.tf"
+echo "Deleted IntCACSR.tf file from RootCA PKI directory"
+echo
 
-# # Delete postscript.tf file from IntCA PKI directory
-# rm "${src_vault_intca_pki_path}/postscript_IntCA1.tf"
-# echo "Deleted postscript_IntCA1.tf file from IntCA PKI directory"
-# echo
+# Delete postscript.tf file from IntCA PKI directory
+rm "${src_vault_intca_pki_path}/postscript_IntCA1.tf"
+echo "Deleted postscript_IntCA1.tf file from IntCA PKI directory"
+echo
 
-# # Delete postscript.tf file from IntCA PKI directory
-# rm "${src_vault_intca_pki_path}/postscript_IntCA2.tf"
-# echo "Deleted postscript_IntCA2.tf file from IntCA PKI directory"
-# echo
+# Delete postscript.tf file from IntCA PKI directory
+rm "${src_vault_intca_pki_path}/postscript_IntCA2.tf"
+echo "Deleted postscript_IntCA2.tf file from IntCA PKI directory"
+echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down IntCA PKI "
 cd $src_vault_intca_pki_path
 terraform init
 terraform destroy -auto-approve
-echo "Teardown complete."
+echo "Teardown of IntCA PKI complete."
 
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down RootCA PKI"
 cd $src_vault_rootca_pki_path
 terraform init
 terraform destroy -auto-approve
-echo "Teardown complete."
+echo "Teardown of RootCA PKI complete."
 
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down IntCA Auth"
 cd $src_vault_intca_auth_path
 terraform init
 terraform destroy -auto-approve
 
-echo "Teardown complete."
+echo "Teardown of IntCA Auth complete."
 
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
-
+echo "Tearing down IntCA Infra infrastructure"
 cd $src_vault_intca_infra_path
 terraform init
 terraform destroy -auto-approve
 
-echo "Teardown complete."
+echo "Teardown of IntCA Infra infrastructure complete."
 
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down RootCA Auth"
 
 cd $src_vault_rootca_auth_path
 terraform init
 terraform destroy -auto-approve
 
-echo "Teardown complete."
+echo "Teardown of RootCA Auth complete."
 
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down RootCA Infra infrastructure"
 
 cd $src_vault_rootca_infra_path
 terraform init
 terraform destroy -auto-approve
 
-echo "Teardown complete."
+echo "Teardown of RootCA Infra infrastructure complete."
 
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down TFBE Auth"
 
 cd $src_vault_tfbe_auth_path
 terraform init
 terraform destroy -auto-approve
 
-echo "Teardown complete."
+echo "Teardown of TFBE Auth complete."
 
 echo
 echo
 
-echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down TFBE Infra infrastructure"
 
 cd $src_vault_tfbe_infra_path
 terraform init
 terraform destroy -auto-approve
 
-echo "Teardown complete."
+echo "Teardown of TFBE Infra infrastructure complete."
 
 echo
 echo
 
-# echo "Tearing down Terraform-managed infrastructure..."
+echo "Tearing down Azure Cloud Storage Account"
 
-# cd $src_azure_remotestorage_path
-# terraform destroy -auto-approve
+cd $src_azure_remotestorage_path
+terraform destroy -auto-approve
 
-# echo "Teardown complete."
+echo "Teardown of Azure Cloud Storage Account complete."
 
 echo
 echo
