@@ -7,6 +7,6 @@ ssh-keygen -f "/home/zohaib/.ssh/known_hosts" -R "10.0.0.104"
 
 # Connect 
 #ssh -i ~/.ssh/ansible s_admin@10.0.0.101 "vault operator unseal $(jq -r '.unseal_keys_b64[0]' /opt/vault/unseal/vault_init.json)"
-ssh -i ~/.ssh/ansible s_admin@10.0.0.101 "vault operator unseal SVgA9kEnaTOjinUCMnPebf+iY530K4wxaN1n9AJ/o8U="
-ssh -i ~/.ssh/ansible s_admin@10.0.0.102 "vault operator unseal IMa6oJFt+6G5uDqeK244OWB9DJbm9utxoDC7ROxZhq4="
-ssh -i ~/.ssh/ansible s_admin@10.0.0.103 "vault operator unseal G6ZFO7ezlAC5+T5WoIrN5Ejf+IgVwOqAGHhkHOo5qPY="
+ssh -i ~/.ssh/ansible s_admin@10.0.0.101 "vault operator unseal UoYYQpcxjn++oCMOUgb5eetqTJp5G87S9UG6FOM46Fk="
+ssh -i ~/.ssh/ansible s_admin@10.0.0.102 "vault operator unseal rWKt8pwMelT7Iydt8lQd5gf6pSuF2Lj8ArSfylKZZU0="
+ssh -i ~/.ssh/ansible s_admin@10.0.0.103 "vault operator unseal bzf0NF9zx040h0aJxqeSEjezAf4jvciUcorCmBFX90U="

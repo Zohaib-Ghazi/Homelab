@@ -6,7 +6,7 @@ variable "vm_name_suffix" {
 variable "ip_address" {
     description = "VM IP Address"
     type = string
-    #default = "10.0.0.105"
+    default = "10.0.0.101"
 }
 
 variable "ansible_user" {
