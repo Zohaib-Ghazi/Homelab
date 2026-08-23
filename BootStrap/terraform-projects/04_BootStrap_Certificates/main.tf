@@ -1,4 +1,4 @@
-resource "null_resource" "request_certificates_for_bootstrap" {
+resource "null_resource" "run_certificate_request_script" {
     #count      = var.skip_certificate_provisioning == false && var.vault_cert_role != null ? 1 : 0
     #depends_on = [null_resource.wait_for_ssh]
 

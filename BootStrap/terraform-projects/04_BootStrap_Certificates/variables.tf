@@ -1,6 +1,7 @@
 variable "vm_name_suffix" {
     description = "VM Name Suffix"
     type = string
+    default = "PROD-TFBE"
 }
 
 variable "ip_address" {
@@ -26,11 +27,6 @@ variable "directory" {
     type = string
 }
 
-variable "inventory_path" {
-    description = "Ansible inventory path of the current project"
-    type = string
-}
-
 # Certificate provisioning variables
 variable "skip_certificate_provisioning" {
     description = "Whether to skip Vault certificate provisioning. Set to true to skip, false to request certificate."
@@ -47,13 +43,13 @@ variable "vault_address" {
 variable "vault_cert_role" {
     description = "Vault PKI role to use for certificate issuance (e.g., proxmox-host, infra-server)"
     type = string
-    default = null
+    default = "proxmox_host"
 }
 
 variable "vault_cert_san" {
     description = "Subject Alternative Names for the certificate (comma-separated)"
     type = string
-    default = ""
+    default = "PROD-TFBE.naizoyden.net, 10.0.0.101"
 }
 
 variable "appRole_RoleID" {

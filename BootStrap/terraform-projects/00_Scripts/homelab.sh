@@ -13,6 +13,7 @@ src_vault_tfbe_infra_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terrafo
 src_vault_tfbe_auth_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/01_Vault_TFBE_Secrets_AuthControl"
 src_azure_remotestorage_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/01_AzureCloud_StorageAccount"
 src_jenkins_infra_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/04_CICD_Jenkins_Infra"
+src_bootstrap_certificates_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/04_BootStrap_Certificates"
 output_path_vault="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/output/"
 
 echo "Starting Terraform deployment for Azure Remote Storage Infrastructure"
@@ -211,6 +212,7 @@ echo
 
 # Run terraform apply again in RootCA PKI directory to sign IntCA CSR
 cd $src_vault_rootca_pki_path
+terraform init
 terraform apply -auto-approve
 echo "Signed IntCA CSR in RootCA PKI directory"
 echo
@@ -222,6 +224,7 @@ echo
 
 # Run terraform apply again in IntCA PKI directory to import the signed IntCA certificate
 cd $src_vault_intca_pki_path
+terraform init
 terraform apply -auto-approve
 echo "Imported signed IntCA certificate"
 echo
@@ -233,8 +236,19 @@ echo
 
 # Run terraform apply again in IntCA PKI directory to sign IntCA CSR and complete IntCA setup
 cd $src_vault_intca_pki_path
+terraform init
 terraform apply -auto-approve
-echo "Configuring CA &* CRL distribution points, OCSP responder, and other post-configuration steps, including ACME DNS challenge setup for domain validation"
+echo "Configured CA &* CRL distribution points, OCSP responder, and other post-configuration steps, including ACME DNS challenge setup for domain validation"
+echo
+echo
+echo
+
+# Run terraform apply in BootStrap Certificates directory to request certificates from Vault PKI IntCA
+echo "Starting Terraform deployment for BootStrap Certificates"
+cd $src_bootstrap_certificates_path
+terraform init
+terraform apply -auto-approve
+echo "Completed script for TFBE VM to request certificates from Vault PKI IntCA"
 echo
 echo
 echo
