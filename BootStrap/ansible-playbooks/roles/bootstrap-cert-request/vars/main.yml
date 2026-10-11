@@ -1,0 +1,19 @@
+---
+packages: 
+  - openssl
+  # - curl
+  # - jq
+  # - nano
+  # - net-tools
+  # - iputils-ping
+  # - dnsutils
+remote_script: "vault-cert-request.sh"
+remote_script_dest: "/usr/local/bin/vault-cert-request.sh"
+expected_pubcert_path: "/etc/ssl/certs/"
+expected_privkey_path: "/etc/ssl/private/"
+expected_cert: "/etc/ssl/certs/vault.crt"       
+# vault_addr: "https://PROD-IntermediateCA.naizoyden.net:8200"
+# vault_CACert: "/usr/local/share/ca-certificates/vault-cert.crt" #TODO: modify this to use *.pem
+# vault_key: "/opt/vault/tls/vault-key.pem"
+# vault_config: "/opt/vault/vault-config.hcl"
+# vault_service_dest: "/etc/systemd/system/vault.service"

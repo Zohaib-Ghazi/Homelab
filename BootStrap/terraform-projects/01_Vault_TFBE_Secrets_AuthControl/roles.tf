@@ -1,3 +1,35 @@
+#Not currently used, but can be used to create approle for root_ca client
+# # Create approle for root_ca client 
+# resource "vault_approle_auth_backend_role" "rootca" {
+#    backend       = vault_auth_backend.TF_approle.path
+#    role_name    = "root-ca-approle"
+#    token_policies = ["root_ca_policy"]
+#    secret_id_ttl = "0" # Secret ID does not expire
+#    token_ttl     = "1800" # Token is valid for 30 min (in sec)
+#    token_max_ttl = "3600" # Token can be renewed up to 1 hour (in sec)
+# }
+
+# Create approle for int_ca client
+resource "vault_approle_auth_backend_role" "tf_admin_approle" {
+  backend       = vault_auth_backend.TF_approle.path
+  role_name    = "tf_admin_approle"
+  token_policies = ["tf-admin-policy"]
+  secret_id_ttl = "0" # Secret ID does not expire
+  token_ttl     = "1800" # Token is valid for 30 min (in sec)
+  token_max_ttl = "3600" # Token can be renewed up to 1 hour (in sec)
+}
+
+# Not currently used, but can be used to create approle for TF_SPN client
+# # Create approle for TF clients
+# resource "vault_approle_auth_backend_role" "TF_SPN" {
+#   backend       = vault_auth_backend.TF_approle.path
+#   role_name    = "tf_client_approle"
+#   token_policies = ["tfbe-state-policy"]
+#   secret_id_ttl = "0" # Secret ID does not expire
+#   token_ttl     = "1800" # Token is valid for 30 min (in sec)
+#   token_max_ttl = "3600" # Token can be renewed up to 1 hour (in sec)
+# }
+
 # resource "vault_pki_secret_backend_role" "role-server-cer" {
 #   depends_on = [ vault_mount.terraform ]
 #   backend = vault_mount.pki_int.path

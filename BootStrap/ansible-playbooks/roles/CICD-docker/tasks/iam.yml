@@ -45,3 +45,23 @@
     state: present
   become: true
   tags: network
+
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of RootCA VM
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.101"
+    line: "10.0.0.101 PROD-TFBE.naizoyden.net PROD-TFBE"
+    state: present
+  become: true
+  tags: network
+
+#TODO: Temporary until DNS server is configured on network
+- name: If not present, add to /etc/hosts the static IP of RootCA VM
+  lineinfile:
+    path: /etc/cloud/templates/hosts.debian.tmpl
+    regexp: "^10.0.0.103"
+    line: "10.0.0.103 PROD-IntermediateCA.naizoyden.net PROD-IntermediateCA"
+    state: present
+  become: true
+  tags: network

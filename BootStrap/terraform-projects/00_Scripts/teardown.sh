@@ -12,6 +12,7 @@ src_vault_intca_auth_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terrafo
 src_vault_tfbe_infra_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/01_Vault_TFBE_Infra"
 src_vault_tfbe_auth_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/01_Vault_TFBE_Secrets_AuthControl"
 src_azure_remotestorage_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/01_AzureCloud_StorageAccount"
+src_bootstrap_certificates_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terraform-projects/04_BootStrap_Certificates"
 
 # echo "Tearing down Terraform-managed infrastructure..."
 # cd $src_jenkins_infra_path
@@ -21,6 +22,13 @@ src_azure_remotestorage_path="/mnt/c/Users/Zohaib/HomeLab/Homelab/BootStrap/terr
 
 # echo
 # echo
+
+echo "Starting Removal of Bootstrap VM certificates requests from Vault PKI IntCA..."
+cd $src_bootstrap_certificates_path
+terraform init
+terraform destroy -auto-approve
+echo "Teardown completed for Bootstrap VM certificates requests from Vault PKI IntCA"
+echo
 
 # Delete IntCACSR.tf file from RootCA PKI directory
 rm "${src_vault_rootca_pki_path}/IntCACSR.tf"
@@ -119,12 +127,12 @@ echo "Teardown of TFBE Infra infrastructure complete."
 echo
 echo
 
-echo "Tearing down Azure Cloud Storage Account"
+# echo "Tearing down Azure Cloud Storage Account"
 
-cd $src_azure_remotestorage_path
-terraform destroy -auto-approve
+# cd $src_azure_remotestorage_path
+# terraform destroy -auto-approve
 
-echo "Teardown of Azure Cloud Storage Account complete."
+# echo "Teardown of Azure Cloud Storage Account complete."
 
 echo
 echo

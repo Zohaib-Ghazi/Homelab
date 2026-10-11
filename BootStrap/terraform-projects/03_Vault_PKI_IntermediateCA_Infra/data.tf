@@ -1,25 +1,28 @@
 #Read Vault secret for Azure Service Principal
-data "vault_kv_secret_v2" "azure_creds" {
+ephemeral "vault_kv_secret_v2" "azure_creds" {
+  provider = vault.tfbe
   mount = "terraform"
-  name = "secrets/azure_creds"
+  name = "secrets/azure"
 }
 
 #Read Vault secret for Vault credentials
-data "vault_kv_secret_v2" "vault_creds" {
+ephemeral "vault_kv_secret_v2" "vault_creds" {
+  provider = vault.tfbe
   mount = "terraform"
-  name = "secrets/vault_creds"
+  name = "secrets/vault"
 }
 
-#Read Vault secret for TF Service Principal
-data "vault_kv_secret_v2" "TF_SPN" {
-  mount = "terraform"
-  name = "secrets/TF_SPN"
-}
+# #Read Vault secret for TF Service Principal
+# ephemeral "vault_kv_secret_v2" "TF_SPN" {
+#   provider = vault.tfbe
+#   mount = "terraform"
+#   name = "secrets/TF_SPN"
+# }
 
 # Retrieve Azure credentials from Vault
 locals {
-  subscription_id = data.vault_kv_secret_v2.azure_creds.data["subscription_id"]
-  client_id       = data.vault_kv_secret_v2.azure_creds.data["client_id"]
-  client_secret   = data.vault_kv_secret_v2.azure_creds.data["client_secret"]
-  tenant_id       = data.vault_kv_secret_v2.azure_creds.data["tenant_id"]
+  subscription_id = ephemeral.vault_kv_secret_v2.azure_creds.data["subscription_id"]
+  client_id       = ephemeral.vault_kv_secret_v2.azure_creds.data["client_id"]
+  client_secret   = ephemeral.vault_kv_secret_v2.azure_creds.data["client_secret"]
+  tenant_id       = ephemeral.vault_kv_secret_v2.azure_creds.data["tenant_id"]
 }

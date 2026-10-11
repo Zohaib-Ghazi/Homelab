@@ -1,6 +1,6 @@
-resource "vault_policy" "admin-vault-policy" {
+resource "vault_policy" "root-admin-policy" {
     provider = vault.pki_int
-    name = "admin-vault-policy"
+    name = "root-admin-policy"
 
     policy = <<EOT
 path "*" {
@@ -15,9 +15,9 @@ EOT
 }
 
 # Policy for Proxmox VMs to issue certificates via AppRole
-resource "vault_policy" "proxmox-cert-policy" {
+resource "vault_policy" "IntPKI-cert-policy" {
     provider = vault.pki_int
-    name = "proxmox-cert-policy"
+    name = "IntPKI-cert-policy"
 
     policy = <<EOT
 # Allow reading the intermediate CA certificate

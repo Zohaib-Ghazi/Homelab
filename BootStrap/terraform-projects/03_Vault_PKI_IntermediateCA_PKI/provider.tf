@@ -16,7 +16,7 @@ terraform {
 
 # Auth Vault Provider (for retrieving Azure credentials)
 provider "vault" {
-  #alias = "auth"
+  alias = "tfbe"
   address = var.vault_address
   skip_child_token = true
   # Authenticate using AppRole and the retrieved role_id and secret_id
