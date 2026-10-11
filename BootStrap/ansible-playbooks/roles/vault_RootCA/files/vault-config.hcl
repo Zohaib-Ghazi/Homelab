@@ -12,12 +12,12 @@ log_file             = "/opt/vault/logs/vault.log" # Ensure this directory exist
 listener "tcp" {
 address       = "0.0.0.0:8200"
 #tls_disable   = "true" # Set to "true" for testing purposes only
-tls_cert_file = "/usr/local/share/ca-certificates/vault-cert.crt"
+tls_cert_file = "/opt/vault/tls/vault-cert.pem"
 tls_key_file  = "/opt/vault/tls/vault-key.pem"
 tls_disable_client_certs = true # Set to "true" for trusted environments only, until mTLS can be implemented
 }
 
-backend "file" {
+storage "file" {
 path    = "/opt/vault/data"
 node_id = "vault-RootCA"
 }

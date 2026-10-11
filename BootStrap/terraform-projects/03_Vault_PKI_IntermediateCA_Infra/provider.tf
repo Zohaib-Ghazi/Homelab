@@ -21,6 +21,7 @@ terraform {
 
 # Configure the Vault Provider
 provider "vault" {
+  alias = "tfbe"
   address = var.vault_address
   skip_child_token = true
   # Authenticate using AppRole and the retrieved role_id and secret_id

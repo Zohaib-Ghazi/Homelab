@@ -1,6 +1,6 @@
-resource "vault_policy" "admin-vault-policy" {
+resource "vault_policy" "root-admin-policy" {
     provider = vault.pki
-    name = "admin-vault-policy"
+    name = "root-admin-policy"
 
     policy = <<EOT
 path "*" {

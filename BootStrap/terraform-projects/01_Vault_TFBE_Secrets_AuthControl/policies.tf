@@ -1,5 +1,5 @@
-resource "vault_policy" "admin-vault-policy" {
-    name = "admin-vault-policy"
+resource "vault_policy" "root-admin-policy" {
+    name = "root-admin-policy"
 
     policy = <<EOT
 path "*" {
@@ -73,36 +73,40 @@ path "sys/mounts"
 EOT
 }
 
-resource "vault_policy" "root_ca_policy" {
-    name = "root_ca_policy"
+# TODO: Validate access from rootca during bootstrap process
+# resource "vault_policy" "root_ca_policy" {
+#     name = "root-ca-policy"
+
+#     policy = <<EOT
+# path "terraform/data/secrets/*" {
+#     capabilities = ["create", "read", "update", "list"]
+# }
+# EOT
+# }
+
+resource "vault_policy" "tf-admin-policy" {
+    name = "tf-admin-policy"
 
     policy = <<EOT
-path "terraform/state/root_ca" {
-    capabilities = ["create", "read", "update", "delete", "list"]
-}
-EOT
-}
-
-resource "vault_policy" "int_ca_policy" {
-    name = "int_ca_policy"
-
-    policy = <<EOT
-path "terraform/state/int_ca" {
-    capabilities = ["create", "read", "update", "delete", "list"]
+# Create, update, and delete  key/value 
+path "terraform/data/*" {
+    capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
 
-path "terraform/state/root_ca" {
-    capabilities = ["read", "list"]
-}
-EOT
+# Create, update, and delete metadata 
+path "terraform/metadata/*" {
+    capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
 
-resource "vault_policy" "TF_state_policy" {
-    name = "tfbe-state-policy"
+# Allows the AppRole to create, update, or read the 'terraform' secrets engine mount
+path "sys/mounts/terraform"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
 
-    policy = <<EOT
-    path "terraform/data/secrets/*" {
-        capabilities = ["read", "list"]
-    }
+# (Optional) Frequently required for tuning the mount's TTLs or configurations
+path "sys/mounts/terraform/tune" {
+  capabilities = ["update", "read"]
+}
 EOT
 }

@@ -1,0 +1,52 @@
+---
+- import_tasks: packages.yml
+
+- name: Copy cert-request script to guest VM
+  ansible.builtin.copy:
+    src: "{{ remote_script }}"
+    dest: "{{ remote_script_dest }}"
+    mode: '0755'
+
+- name: Start cert request script (run async so many VMs don't block)
+  ansible.builtin.shell: "{{ remote_script }}"
+  async: 600
+  poll: 0
+  register: cert_job
+
+- name: Wait for async job to finish
+  ansible.builtin.async_status:
+    jid: "{{ cert_job.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 60
+  delay: 5
+
+- name: Ensure certificate file exists
+  ansible.builtin.stat:
+    path: "{{ expected_pubcert_path }}"
+  register: cert_stat
+
+- name: Fail if certificate missing
+  ansible.builtin.fail:
+    msg: "Certificate not found at {{ expected_cert }}"
+  when: not cert_stat.stat.exists
+
+- name: Fetch certificate to control node (optional)
+  ansible.builtin.fetch:
+    src: "{{ expected_cert }}"
+    dest: "output/certs/{{ inventory_hostname }}/"
+    flat: yes
+
+- name: Validate certificate with openssl (on control node via delegate_to)
+  ansible.builtin.shell: "openssl x509 -in {{ expected_cert }} -noout -text"
+  register: cert_info
+  changed_when: false
+
+- name: Show certificate subject and fingerprint
+  ansible.builtin.debug:
+    msg:
+      - "Host: {{ inventory_hostname }}"
+      - "Subject: {{ cert_info.stdout | regex_search('Subject: (.*)', '\\1') }}"
+      - "Fingerprint: {{ lookup('pipe', 'openssl x509 -in ' + expected_cert + ' -noout -fingerprint -sha256') }}"
+  delegate_to: "{{ inventory_hostname }}"
+  run_once: false
