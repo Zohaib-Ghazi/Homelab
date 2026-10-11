@@ -67,3 +67,27 @@ variable "pki_root_token" {
     type        = string
     sensitive   = true
 }
+
+variable "vault_role_id" {
+  description = "Vault AppRole Role ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "vault_secret_id" {
+  description = "Vault AppRole Secret ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "pki_vault_role_id" {
+  description = "PKI Vault AppRole Role ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "pki_vault_secret_id" {
+  description = "PKI Vault AppRole Secret ID"
+  type        = string
+  sensitive   = true
+}
